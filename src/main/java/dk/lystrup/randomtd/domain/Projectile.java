@@ -44,5 +44,7 @@ public abstract class Projectile extends Entity {
         }
     }
     
-    private Entity target;
+    protected Entity target;
+    protected double speed;
+    
 }

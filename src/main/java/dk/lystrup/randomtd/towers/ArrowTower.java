@@ -25,7 +25,7 @@ public class ArrowTower extends Tower{
     
     @Override
     public void draw(Graphics2D g) {
-        g.drawRect((int)x, (int)y, TOWER_WIDTH, TOWER_HEIGHT);
+        g.drawRect((int)getX(), (int)getY(), TOWER_WIDTH, TOWER_HEIGHT);
     }    
     
 }
