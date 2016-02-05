@@ -18,7 +18,5 @@ public abstract class Entity {
     
     protected String name;
     
-    public void draw(Graphics2D g) {
-        
-    }
+    public abstract void draw(Graphics2D g);
 }

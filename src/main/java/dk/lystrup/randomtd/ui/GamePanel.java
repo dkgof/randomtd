@@ -6,6 +6,7 @@
 package dk.lystrup.randomtd.ui;
 
 import dk.lystrup.randomtd.domain.Entity;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -35,10 +36,15 @@ public class GamePanel extends JPanel {
     }
     
     @Override
-    public void paintComponents(Graphics g) {
+    public void paintComponent(Graphics g) {
+        System.out.println("Drawing entities!");
+        
         super.paintComponents(g);
         
         Graphics2D g2 = (Graphics2D) g;
+
+        g2.setBackground(Color.white);
+        g2.clearRect(0, 0, this.getWidth(), this.getHeight());
         
         synchronized(entities) {
             entities.parallelStream().forEach((entity) -> {

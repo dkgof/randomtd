@@ -5,6 +5,8 @@
  */
 package dk.lystrup.randomtd;
 
+import dk.lystrup.randomtd.towers.ArrowTower;
+import dk.lystrup.randomtd.ui.GamePanel;
 import dk.lystrup.randomtd.ui.MainWindow;
 
 /**
@@ -14,5 +16,7 @@ import dk.lystrup.randomtd.ui.MainWindow;
 public class Main {
     public static void main(String[] args) {
         new MainWindow();
+        
+        GamePanel.instance().addEntity(new ArrowTower());
     }
 }

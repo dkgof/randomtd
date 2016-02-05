@@ -7,6 +7,7 @@ package dk.lystrup.randomtd.towers;
 
 import dk.lystrup.randomtd.domain.Tower;
 import dk.lystrup.randomtd.projectiles.Arrow;
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 /**
@@ -25,6 +26,7 @@ public class ArrowTower extends Tower{
     
     @Override
     public void draw(Graphics2D g) {
+        g.setColor(Color.red);
         g.drawRect((int)x, (int)y, TOWER_WIDTH, TOWER_HEIGHT);
     }    
     
