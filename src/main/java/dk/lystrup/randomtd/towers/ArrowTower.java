@@ -13,7 +13,12 @@ import dk.lystrup.randomtd.engine.DrawHelper;
 import dk.lystrup.randomtd.projectiles.Arrow;
 import dk.lystrup.randomtd.ui.GamePanel;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 /**
@@ -29,6 +34,7 @@ public class ArrowTower extends Tower{
     
     private final double fireCooldown;
     private double fireTimer;
+    private BufferedImage img;
 
     public ArrowTower(double x, double y) {
         super(x,y);
@@ -40,7 +46,14 @@ public class ArrowTower extends Tower{
     
     @Override
     public void draw(DrawHelper draw) {
-        draw.fillRectangle(x, y, TOWER_WIDTH, TOWER_HEIGHT, Color.red);
+        if(img == null) {
+            try {
+                img = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/towers/Tower_BasicArrow.png"));
+            } catch (IOException ex) {
+                Logger.getLogger(ArrowTower.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        draw.drawImage(x, y, TOWER_WIDTH, TOWER_HEIGHT, img);
     }    
 
     @Override
