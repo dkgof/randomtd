@@ -91,5 +91,18 @@ public abstract class Projectile extends Entity {
         return damageType;
     }
     
+    public double getAngle() {
+        Vector2D targetVector = new Vector2D(target.getX(), target.getY());
+        Vector2D myVector = new Vector2D(x, y);
+
+        Vector2D dirVector = targetVector.subtract(myVector);
+        Vector2D normalVector = new Vector2D(1,0);
+        
+        double dot = dirVector.dotProduct(normalVector);
+        double det = dirVector.getX() * normalVector.getY() + normalVector.getX() * dirVector.getY();
+        return Math.atan2(det, dot);
+
+    }
+    
     protected abstract void onDeath();
 }

@@ -9,7 +9,6 @@ import dk.lystrup.randomtd.domain.NPC;
 import dk.lystrup.randomtd.domain.Projectile;
 import dk.lystrup.randomtd.engine.DrawHelper;
 import dk.lystrup.randomtd.towers.ArrowTower;
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -37,12 +36,13 @@ public class Arrow extends Projectile{
     public void draw(DrawHelper draw) {
         if(img == null) {
             try {
-                img = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("images/projectiles/Projectile_Arrow.png"));
+                img = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("./images/projectiles/Projectile_Arrow.png"));
             } catch (IOException ex) {
                 Logger.getLogger(ArrowTower.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        draw.drawImage(x, y, 0.5, 0.5, img);
+        
+        draw.drawImage(x, y, 2, 0.5, img, getAngle());
     }
     
 }

@@ -13,7 +13,7 @@ import java.awt.Image;
  * @author rolf
  */
 public interface DrawHelper {
-    public void drawImage(double x, double y, double width, double height, Image img);
+    public void drawImage(double x, double y, double width, double height, Image img, double angle);
     
     public void drawRectangle(double x, double y, double width, double height, Color color);
 

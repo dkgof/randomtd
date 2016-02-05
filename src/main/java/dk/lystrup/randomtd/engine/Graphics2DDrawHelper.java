@@ -8,6 +8,7 @@ package dk.lystrup.randomtd.engine;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 
 /**
  *
@@ -28,14 +29,21 @@ public class Graphics2DDrawHelper implements DrawHelper {
     }
     
     @Override
-    public void drawImage(double x, double y, double width, double height, Image img) {
+    public void drawImage(double x, double y, double width, double height, Image img, double angle) {
         double correctedWidth = width * pixelsPerMeterWidth;
         double correctedHeight = height * pixelsPerMeterHeight;
         
-        double correctedX = x * pixelsPerMeterWidth;
-        double correctedY = y * pixelsPerMeterHeight;
+        double correctedX = (x - width/2.0) * pixelsPerMeterWidth;
+        double correctedY = (y - height/2.0) * pixelsPerMeterHeight;
         
-        g2.drawImage(img, (int) correctedX, (int) correctedY, (int) correctedWidth, (int) correctedHeight, null);
+        AffineTransform transform = new AffineTransform();
+        transform.translate(correctedX, correctedY);
+        transform.rotate(angle);
+        transform.scale(correctedWidth / img.getWidth(null), correctedHeight / img.getHeight(null));
+        
+        g2.drawImage(img, transform, null);
+        
+        //g2.drawImage(img, (int) correctedX, (int) correctedY, (int) correctedWidth, (int) correctedHeight, null);
     }
 
     @Override
@@ -52,8 +60,8 @@ public class Graphics2DDrawHelper implements DrawHelper {
         double correctedWidth = w * pixelsPerMeterWidth;
         double correctedHeight = h * pixelsPerMeterHeight;
         
-        double correctedX = x * pixelsPerMeterWidth;
-        double correctedY = y * pixelsPerMeterHeight;
+        double correctedX = (x - w/2.0) * pixelsPerMeterWidth;
+        double correctedY = (y - h/2.0) * pixelsPerMeterHeight;
         
         g2.setColor(c);
         if(fill) {
