@@ -29,4 +29,6 @@ public abstract class NPC extends Entity {
     private double movementSpeed;
     
     private boolean flying;
+    
+    public abstract void doDamage(Projectile p);
 }
