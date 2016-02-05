@@ -8,6 +8,7 @@ package dk.lystrup.randomtd.domain;
 import dk.lystrup.randomtd.domain.NPC.ArmorType;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 /**
  *
@@ -53,7 +54,12 @@ public abstract class Projectile extends Entity {
 
     @Override
     public void tick(double deltaTime) {
+        Vector2D targetVector = new Vector2D(target.getX(), target.getY());
+        Vector2D myVector = new Vector2D(x, y);
+        
+        Vector2D dirVector = targetVector.subtract(myVector);
+        Vector2D norm = dirVector.normalize();
+        x += speed*norm.getX()*deltaTime;
+        y += speed*norm.getY()*deltaTime;
     }
-    
-    
 }
