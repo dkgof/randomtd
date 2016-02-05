@@ -6,6 +6,8 @@
 package dk.lystrup.randomtd.ui;
 
 import dk.lystrup.randomtd.domain.Entity;
+import dk.lystrup.randomtd.engine.DrawHelper;
+import dk.lystrup.randomtd.engine.Graphics2DDrawHelper;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -54,8 +56,10 @@ public class GamePanel extends JPanel {
                 entity.tick(deltaTime);
             });
 
+            DrawHelper draw = new Graphics2DDrawHelper(g2);
+            
             entities.parallelStream().forEach((entity) -> {
-                entity.draw(g2);
+                entity.draw(draw);
             });
             
             lastTime = System.nanoTime();

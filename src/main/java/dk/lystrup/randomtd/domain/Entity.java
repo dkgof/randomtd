@@ -5,6 +5,7 @@
  */
 package dk.lystrup.randomtd.domain;
 
+import dk.lystrup.randomtd.engine.DrawHelper;
 import java.awt.Graphics2D;
 
 /**
@@ -18,7 +19,7 @@ public abstract class Entity {
     
     protected String name;
     
-    public abstract void draw(Graphics2D g);
+    public abstract void draw(DrawHelper draw);
     
     public abstract void tick(double deltaTime);
     

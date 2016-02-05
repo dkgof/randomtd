@@ -6,6 +6,7 @@
 package dk.lystrup.randomtd.projectiles;
 
 import dk.lystrup.randomtd.domain.Projectile;
+import dk.lystrup.randomtd.engine.DrawHelper;
 import java.awt.Graphics2D;
 
 /**
@@ -19,7 +20,7 @@ public class Arrow extends Projectile{
     }
     
     @Override
-    public void draw(Graphics2D g) {
+    public void draw(DrawHelper draw) {
         //PIL
     }
 
