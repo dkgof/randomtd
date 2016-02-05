@@ -7,7 +7,7 @@ package dk.lystrup.randomtd.projectiles;
 
 import dk.lystrup.randomtd.domain.Projectile;
 import dk.lystrup.randomtd.engine.DrawHelper;
-import java.awt.Graphics2D;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 /**
  *
@@ -22,10 +22,6 @@ public class Arrow extends Projectile{
     @Override
     public void draw(DrawHelper draw) {
         //PIL
-    }
-
-    @Override
-    public void tick(double deltaTime) {
     }
     
 }
