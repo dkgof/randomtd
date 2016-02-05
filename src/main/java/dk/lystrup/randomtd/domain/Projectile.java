@@ -44,10 +44,16 @@ public abstract class Projectile extends Entity {
         }
     }
     
+    protected Entity target;
+    protected double speed;
+    
     public Projectile(double x, double y) {
         super(x, y);
     }
-    protected Entity target;
-    protected double speed;
+
+    @Override
+    public void tick(double deltaTime) {
+    }
+    
     
 }
