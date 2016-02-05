@@ -37,8 +37,6 @@ public class GamePanel extends JPanel {
     
     @Override
     public void paintComponent(Graphics g) {
-        System.out.println("Drawing entities!");
-        
         super.paintComponents(g);
         
         Graphics2D g2 = (Graphics2D) g;
