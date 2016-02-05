@@ -6,9 +6,16 @@
 package dk.lystrup.randomtd.domain;
 
 import dk.lystrup.randomtd.domain.NPC.ArmorType;
+import dk.lystrup.randomtd.engine.DrawHelper;
+import dk.lystrup.randomtd.towers.ArrowTower;
 import dk.lystrup.randomtd.ui.GamePanel;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 /**
@@ -50,17 +57,24 @@ public abstract class Projectile extends Entity {
         }
     }
 
+    private BufferedImage img;
+    private final String imagePath;
+    private final double width, height;
+    
     protected NPC target;
     protected double speed;
     protected double damage;
     protected DamageType damageType;
 
-    public Projectile(double x, double y, NPC target, double speed, double damage, DamageType type) {
+    public Projectile(double x, double y, NPC target, double speed, double damage, DamageType type, String imagePath, double width, double height) {
         super(x, y);
         this.target = target;
         this.speed = speed;
         this.damage = damage;
         this.damageType = type;
+        this.imagePath = imagePath;
+        this.width = width;
+        this.height = height;
     }
 
     @Override
@@ -81,6 +95,18 @@ public abstract class Projectile extends Entity {
             x += speed * norm.getX() * deltaTime;
             y += speed * norm.getY() * deltaTime;
         }
+    }
+    
+    @Override
+    public void draw(DrawHelper draw) {
+        if(img == null) {
+            try {
+                img = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(imagePath));
+            } catch (IOException ex) {
+                Logger.getLogger(ArrowTower.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        draw.drawImage(x, y, width, height, img);
     }
 
     public double getDamage() {
