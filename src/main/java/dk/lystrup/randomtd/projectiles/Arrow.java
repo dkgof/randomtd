@@ -14,9 +14,18 @@ import java.awt.Graphics2D;
  */
 public class Arrow extends Projectile{
 
+    public Arrow(double x, double y) {
+        super(x,y);
+    }
+    
     @Override
     public void draw(Graphics2D g) {
         //PIL
+    }
+
+    @Override
+    public void tick(double deltaTime) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

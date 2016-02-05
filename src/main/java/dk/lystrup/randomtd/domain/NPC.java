@@ -32,4 +32,10 @@ public abstract class NPC extends Entity {
     private double movementSpeed;
     
     private boolean flying;
+    
+    public NPC(double x, double y) {
+        super(x,y);
+    }
+    
+    public abstract void doDamage(Projectile p);
 }
