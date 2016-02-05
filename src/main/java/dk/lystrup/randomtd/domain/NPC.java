@@ -9,7 +9,7 @@ package dk.lystrup.randomtd.domain;
  *
  * @author rolf
  */
-public abstract class NPC {
+public abstract class NPC extends Entity {
     
     public enum ArmorType {
         NONE,
@@ -17,8 +17,6 @@ public abstract class NPC {
         MEDIUM,
         HEAVY
     }
-    
-    private String name;
     
     private double maxHealth;
     

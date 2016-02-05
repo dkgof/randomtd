@@ -5,10 +5,20 @@
  */
 package dk.lystrup.randomtd.domain;
 
+import java.awt.Graphics2D;
+
 /**
  *
  * @author rolf
  */
-public abstract class Projectile extends Entity{
+public abstract class Entity {
+    private double x;
     
+    private double y;
+    
+    private String name;
+    
+    public void draw(Graphics2D g) {
+        
+    }
 }
