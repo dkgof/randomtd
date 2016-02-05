@@ -50,15 +50,15 @@ public abstract class Projectile extends Entity {
 
     protected NPC target;
     protected double speed;
-    protected int damage;
-    protected DamageType type;
+    protected double damage;
+    protected DamageType damageType;
 
-    public Projectile(double x, double y, NPC target, double speed, int damage, DamageType type) {
+    public Projectile(double x, double y, NPC target, double speed, double damage, DamageType type) {
         super(x, y);
         this.target = target;
         this.speed = speed;
         this.damage = damage;
-        this.type = type;
+        this.damageType = type;
     }
 
     @Override
@@ -80,6 +80,16 @@ public abstract class Projectile extends Entity {
             y += speed * norm.getY() * deltaTime;
         }
     }
+
+    public double getDamage() {
+        return damage;
+    }
+
+    public DamageType getDamageType() {
+        return damageType;
+    }
+    
+    
     
     protected abstract void onDeath();
 }
