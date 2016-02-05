@@ -24,66 +24,64 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 
     private static GamePanel instance;
-    
+
     public static GamePanel instance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new GamePanel();
         }
-        
+
         return instance;
     }
-    
+
     private final List<Entity> entities;
-    
+    private final List<Entity> addEntities;
+    private final List<Entity> removeEntities;
+
     private GamePanel() {
         entities = new ArrayList<>();
+        addEntities = new ArrayList<>();
+        removeEntities = new ArrayList<>();
     }
-    
+
     private long lastTime = -1;
-    
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
+
         Graphics2D g2 = (Graphics2D) g;
 
         g2.setBackground(Color.white);
         g2.clearRect(0, 0, this.getWidth(), this.getHeight());
-        
-        synchronized(entities) {
-            
-            if(lastTime == -1) {
-                lastTime = System.nanoTime();
-            }
-            
-            double deltaTime = (System.nanoTime() - lastTime) / 1000000000.0;
-            
-            entities.parallelStream().forEach((entity) -> {
-                entity.tick(deltaTime);
-            });
 
-            DrawHelper draw = new Graphics2DDrawHelper(g2, this.getWidth(), this.getHeight());
-            
-            entities.stream().forEach((entity) -> {
-                entity.draw(draw);
-            });
-            
+        if (lastTime == -1) {
             lastTime = System.nanoTime();
         }
-    }    
+
+        double deltaTime = (System.nanoTime() - lastTime) / 1000000000.0;
+
+        entities.parallelStream().forEach((entity) -> {
+            entity.tick(deltaTime);
+        });
+
+        DrawHelper draw = new Graphics2DDrawHelper(g2, this.getWidth(), this.getHeight());
+
+        entities.stream().forEach((entity) -> {
+            entity.draw(draw);
+        });
+
+        lastTime = System.nanoTime();
+    }
 
     public void addEntity(Entity e) {
-        synchronized(entities) {
-            entities.add(e);
-        }
+        
+        entities.add(e);
     }
-    
+
     public void removeEntity(Entity e) {
-        synchronized(entities) {
-            entities.remove(e);
-        }
+        entities.remove(e);
     }
-    
+
     public Collection<Entity> getEntities() {
         return Collections.unmodifiableList(entities);
     }
