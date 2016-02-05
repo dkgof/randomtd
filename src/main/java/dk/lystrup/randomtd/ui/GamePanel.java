@@ -56,7 +56,7 @@ public class GamePanel extends JPanel {
                 entity.tick(deltaTime);
             });
 
-            DrawHelper draw = new Graphics2DDrawHelper(g2);
+            DrawHelper draw = new Graphics2DDrawHelper(g2, this.getWidth(), this.getHeight());
             
             entities.parallelStream().forEach((entity) -> {
                 entity.draw(draw);
