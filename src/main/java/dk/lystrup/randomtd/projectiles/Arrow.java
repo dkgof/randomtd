@@ -19,6 +19,10 @@ public class Arrow extends Projectile{
         super(x, y, target, speed, damage, type);
     }
 
+    @Override
+    protected void onDeath() {
+        
+    }
     
     @Override
     public void draw(DrawHelper draw) {

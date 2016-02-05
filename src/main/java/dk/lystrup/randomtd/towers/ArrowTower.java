@@ -5,9 +5,16 @@
  */
 package dk.lystrup.randomtd.towers;
 
+import dk.lystrup.randomtd.domain.Entity;
+import dk.lystrup.randomtd.domain.NPC;
+import dk.lystrup.randomtd.domain.Projectile;
 import dk.lystrup.randomtd.domain.Tower;
 import dk.lystrup.randomtd.engine.DrawHelper;
+import dk.lystrup.randomtd.projectiles.Arrow;
+import dk.lystrup.randomtd.ui.GamePanel;
 import java.awt.Color;
+import java.util.Collection;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 /**
  *
@@ -17,8 +24,10 @@ public class ArrowTower extends Tower{
     
     private static final int TOWER_WIDTH = 20;
     private static final int TOWER_HEIGHT = 25;
+    private static final double ARROW_SPEED = 10;
+    private static final int ARROW_DAMAGE = 5;
     
-    private double fireCooldown;
+    private final double fireCooldown;
     private double fireTimer;
 
     public ArrowTower(double x, double y) {
@@ -50,6 +59,30 @@ public class ArrowTower extends Tower{
      */
     private boolean shootProjectile(){
         //TODO need a way to find and target NPCs.
+        Collection<Entity> targets = GamePanel.instance().getEntities();
+        if(targets.isEmpty()){
+            return false;
+        }
+        //just some large number...
+        double closestDistance = 99999;
+        double dist;
+        Entity closest = null;
+        Vector2D selfVector = new Vector2D(x, y);
+        for(Entity e : targets){
+            if(!(e instanceof NPC)){
+                continue;
+            }
+            dist = Vector2D.distance(selfVector, new Vector2D(e.getX(), e.getY()));
+            if(dist < closestDistance){
+                closestDistance = dist;
+                closest = e;
+            }
+        }
+        if(closest != null){
+            Arrow arrow = new Arrow(x, y, (NPC) closest, ARROW_SPEED, ARROW_DAMAGE, Projectile.DamageType.PHYSICAL);
+            GamePanel.instance().addEntity(arrow);
+            return true;
+        }
         return false;
     }
     

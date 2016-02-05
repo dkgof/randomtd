@@ -6,6 +6,7 @@
 package dk.lystrup.randomtd.domain;
 
 import dk.lystrup.randomtd.domain.NPC.ArmorType;
+import dk.lystrup.randomtd.ui.GamePanel;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
@@ -70,6 +71,8 @@ public abstract class Projectile extends Entity {
         if (dirVector.getNorm() < COLLISION_RADIUS) {
             //collision happened, do something
             target.doDamage(this);
+            onDeath();
+            GamePanel.instance().removeEntity(this);
         } else {
             //otherwise move towards target
             Vector2D norm = dirVector.normalize();
@@ -77,4 +80,6 @@ public abstract class Projectile extends Entity {
             y += speed * norm.getY() * deltaTime;
         }
     }
+    
+    protected abstract void onDeath();
 }
