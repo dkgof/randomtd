@@ -52,38 +52,10 @@ public class ArrowTower extends Tower{
             }
         }
     }
-    
-    /**
-     * Attempt to fire a projectile.
-     * @return true if a projectile was fired, false otherwise
-     */
-    private boolean shootProjectile(){
-        //TODO need a way to find and target NPCs.
-        Collection<Entity> targets = GamePanel.instance().getEntities();
-        if(targets.isEmpty()){
-            return false;
-        }
-        //just some large number...
-        double closestDistance = 99999;
-        double dist;
-        Entity closest = null;
-        Vector2D selfVector = new Vector2D(x, y);
-        for(Entity e : targets){
-            if(!(e instanceof NPC)){
-                continue;
-            }
-            dist = Vector2D.distance(selfVector, new Vector2D(e.getX(), e.getY()));
-            if(dist < closestDistance){
-                closestDistance = dist;
-                closest = e;
-            }
-        }
-        if(closest != null){
-            Arrow arrow = new Arrow(x, y, (NPC) closest, ARROW_SPEED, ARROW_DAMAGE, Projectile.DamageType.PHYSICAL);
-            GamePanel.instance().addEntity(arrow);
-            return true;
-        }
-        return false;
+
+    @Override
+    protected Projectile generateProjectile(NPC target) {
+       return new Arrow(x, y, target, ARROW_SPEED, ARROW_DAMAGE, Projectile.DamageType.PHYSICAL);
     }
     
     

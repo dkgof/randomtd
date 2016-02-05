@@ -17,13 +17,15 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
  */
 public abstract class Projectile extends Entity {
 
-    private static final double COLLISION_RADIUS = 10;
+    private static final double COLLISION_RADIUS = 0.5;
 
     public enum DamageType {
 
         //(none, light, medium, heavy)
         PHYSICAL(generateDamageMap(1.1, 1.0, 0.9, 0.8)),
-        MAGICAL(generateDamageMap(1, 0.8, 0.9, 1.1));
+        MAGICAL(generateDamageMap(1, 0.8, 0.9, 1.1)),
+        ELECTRICAL(generateDamageMap(1,1,1,1)),
+        EXPLOSIVE(generateDamageMap(1,1,1,1));
 
         DamageType(Map<ArmorType, Double> dmgMap) {
             damageMultipliers = dmgMap;
@@ -88,8 +90,6 @@ public abstract class Projectile extends Entity {
     public DamageType getDamageType() {
         return damageType;
     }
-    
-    
     
     protected abstract void onDeath();
 }
