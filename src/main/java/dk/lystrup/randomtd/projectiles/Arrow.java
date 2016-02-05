@@ -25,7 +25,6 @@ public class Arrow extends Projectile{
 
     @Override
     public void tick(double deltaTime) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

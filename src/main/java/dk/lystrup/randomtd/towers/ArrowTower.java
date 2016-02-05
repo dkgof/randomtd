@@ -33,7 +33,6 @@ public class ArrowTower extends Tower{
 
     @Override
     public void tick(double deltaTime) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
