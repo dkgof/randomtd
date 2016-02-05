@@ -11,7 +11,7 @@ package dk.lystrup.randomtd.domain;
  */
 public abstract class Tower extends Entity {
 
-    private Projectile projectile;
+    protected Projectile projectile;
     
-    private double price;
+    protected double price;
 }
