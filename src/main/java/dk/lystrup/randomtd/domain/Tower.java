@@ -5,7 +5,6 @@
  */
 package dk.lystrup.randomtd.domain;
 
-import dk.lystrup.randomtd.projectiles.Arrow;
 import dk.lystrup.randomtd.ui.GamePanel;
 import java.util.Collection;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;

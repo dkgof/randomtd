@@ -33,7 +33,6 @@ public class ArrowTower extends Tower{
     public ArrowTower(double x, double y) {
         super(x,y);
         
-        price = 5;
         fireCooldown = 1;
         fireTimer = 0;
         range = 50;
