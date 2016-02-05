@@ -10,5 +10,11 @@ package dk.lystrup.randomtd.domain;
  * @author rolf
  */
 public abstract class Tower {
+    private String name;
+    
+    private Projectile projectile;
+    
+    private double price;
+    
     
 }
