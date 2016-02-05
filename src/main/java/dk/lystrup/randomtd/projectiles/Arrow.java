@@ -3,22 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.lystrup.randomtd.domain;
+package dk.lystrup.randomtd.projectiles;
 
+import dk.lystrup.randomtd.domain.Projectile;
 import java.awt.Graphics2D;
 
 /**
  *
- * @author rolf
+ * @author Thor
  */
-public abstract class Entity {
-    protected double x;
-    
-    protected double y;
-    
-    protected String name;
-    
+public class Arrow extends Projectile{
+
+    @Override
     public void draw(Graphics2D g) {
         
     }
+    
 }
