@@ -19,4 +19,11 @@ public abstract class Entity {
     protected String name;
     
     public abstract void draw(Graphics2D g);
+    
+    public abstract void tick(double deltaTime);
+    
+    public Entity(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 }

@@ -45,4 +45,8 @@ public abstract class Projectile extends Entity {
     }
     
     private Entity target;
+    
+    public Projectile(double x, double y) {
+        super(x, y);
+    }
 }

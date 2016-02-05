@@ -19,8 +19,9 @@ public class ArrowTower extends Tower{
     private static final int TOWER_WIDTH = 20;
     private static final int TOWER_HEIGHT = 25;
 
-    public ArrowTower() {
-        projectile = new Arrow();
+    public ArrowTower(double x, double y) {
+        super(x,y);
+        
         price = 5;
     }
     
@@ -29,5 +30,10 @@ public class ArrowTower extends Tower{
         g.setColor(Color.red);
         g.drawRect((int)x, (int)y, TOWER_WIDTH, TOWER_HEIGHT);
     }    
+
+    @Override
+    public void tick(double deltaTime) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
