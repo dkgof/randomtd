@@ -42,6 +42,7 @@ public class ArrowTower extends Tower{
         price = 5;
         fireCooldown = 1;
         fireTimer = 0;
+        range = 50;
     }
     
     @Override
