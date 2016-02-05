@@ -8,6 +8,7 @@ package dk.lystrup.randomtd.projectiles;
 import dk.lystrup.randomtd.domain.NPC;
 import dk.lystrup.randomtd.domain.Projectile;
 import dk.lystrup.randomtd.engine.DrawHelper;
+import java.awt.Color;
 
 /**
  *
@@ -19,9 +20,14 @@ public class Arrow extends Projectile{
         super(x, y, target, speed, damage, type);
     }
 
+    @Override
+    protected void onDeath() {
+        
+    }
     
     @Override
     public void draw(DrawHelper draw) {
+        draw.fillRectangle(x, y, 0.5, 0.5, Color.BLACK);
     }
     
 }

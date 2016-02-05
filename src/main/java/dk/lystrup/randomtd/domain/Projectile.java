@@ -6,6 +6,7 @@
 package dk.lystrup.randomtd.domain;
 
 import dk.lystrup.randomtd.domain.NPC.ArmorType;
+import dk.lystrup.randomtd.ui.GamePanel;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
@@ -49,15 +50,15 @@ public abstract class Projectile extends Entity {
 
     protected NPC target;
     protected double speed;
-    protected int damage;
-    protected DamageType type;
+    protected double damage;
+    protected DamageType damageType;
 
-    public Projectile(double x, double y, NPC target, double speed, int damage, DamageType type) {
+    public Projectile(double x, double y, NPC target, double speed, double damage, DamageType type) {
         super(x, y);
         this.target = target;
         this.speed = speed;
         this.damage = damage;
-        this.type = type;
+        this.damageType = type;
     }
 
     @Override
@@ -70,6 +71,8 @@ public abstract class Projectile extends Entity {
         if (dirVector.getNorm() < COLLISION_RADIUS) {
             //collision happened, do something
             target.doDamage(this);
+            onDeath();
+            GamePanel.instance().removeEntity(this);
         } else {
             //otherwise move towards target
             Vector2D norm = dirVector.normalize();
@@ -77,4 +80,16 @@ public abstract class Projectile extends Entity {
             y += speed * norm.getY() * deltaTime;
         }
     }
+
+    public double getDamage() {
+        return damage;
+    }
+
+    public DamageType getDamageType() {
+        return damageType;
+    }
+    
+    
+    
+    protected abstract void onDeath();
 }
