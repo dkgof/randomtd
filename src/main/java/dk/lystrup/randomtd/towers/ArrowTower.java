@@ -8,7 +8,6 @@ package dk.lystrup.randomtd.towers;
 import dk.lystrup.randomtd.domain.Tower;
 import dk.lystrup.randomtd.engine.DrawHelper;
 import java.awt.Color;
-import java.awt.Graphics2D;
 
 /**
  *
@@ -18,11 +17,16 @@ public class ArrowTower extends Tower{
     
     private static final int TOWER_WIDTH = 20;
     private static final int TOWER_HEIGHT = 25;
+    
+    private double fireCooldown;
+    private double fireTimer;
 
     public ArrowTower(double x, double y) {
         super(x,y);
         
         price = 5;
+        fireCooldown = 1;
+        fireTimer = 0;
     }
     
     @Override
@@ -32,6 +36,22 @@ public class ArrowTower extends Tower{
 
     @Override
     public void tick(double deltaTime) {
+        fireTimer += deltaTime;
+        if(fireTimer >= fireCooldown){
+            if(shootProjectile()){
+                fireTimer -= fireCooldown;
+            }
+        }
     }
+    
+    /**
+     * Attempt to fire a projectile.
+     * @return true if a projectile was fired, false otherwise
+     */
+    private boolean shootProjectile(){
+        //TODO need a way to find and target NPCs.
+        return false;
+    }
+    
     
 }
