@@ -60,6 +60,12 @@ public class GamePanel extends JPanel {
 
         double deltaTime = (System.nanoTime() - lastTime) / 1000000000.0;
 
+        entities.addAll(addEntities);
+        addEntities.clear();
+        
+        entities.removeAll(removeEntities);
+        removeEntities.clear();
+        
         entities.parallelStream().forEach((entity) -> {
             entity.tick(deltaTime);
         });
@@ -74,12 +80,11 @@ public class GamePanel extends JPanel {
     }
 
     public void addEntity(Entity e) {
-        
-        entities.add(e);
+        addEntities.add(e);
     }
 
     public void removeEntity(Entity e) {
-        entities.remove(e);
+        removeEntities.add(e);
     }
 
     public Collection<Entity> getEntities() {

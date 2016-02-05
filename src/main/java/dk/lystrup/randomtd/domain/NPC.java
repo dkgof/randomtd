@@ -24,17 +24,17 @@ public abstract class NPC extends Entity {
         HEAVY
     }
 
-    private double maxHealth;
+    protected double maxHealth;
 
-    private double currentHealth;
+    protected double currentHealth;
 
-    private double armor;
+    protected double armor;
 
-    private ArmorType armorType;
+    protected ArmorType armorType;
 
-    private double movementSpeed;
+    protected double movementSpeed;
 
-    private boolean flying;
+    protected boolean flying;
 
     public NPC(double x, double y) {
         super(x, y);

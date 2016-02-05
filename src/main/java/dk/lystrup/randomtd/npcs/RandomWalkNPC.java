@@ -6,7 +6,6 @@
 package dk.lystrup.randomtd.npcs;
 
 import dk.lystrup.randomtd.domain.NPC;
-import dk.lystrup.randomtd.domain.Projectile;
 import dk.lystrup.randomtd.engine.DrawHelper;
 import java.awt.Color;
 import java.util.Random;
@@ -21,12 +20,17 @@ public class RandomWalkNPC extends NPC {
     
     public RandomWalkNPC() {
         super(rand.nextInt(100), rand.nextInt(100));
+        
+        this.maxHealth = 100;
+        this.currentHealth = 100;
+        
+        this.armor = 0;
+        this.armorType = ArmorType.LIGHT;
+        
+        this.flying = false;
+        this.name = "RandomWalkNPC";
     }
     
-    @Override
-    public void doDamage(Projectile p) {
-    }
-
     @Override
     public void draw(DrawHelper draw) {
         draw.drawRectangle(x, y, 2, 2, Color.green);
