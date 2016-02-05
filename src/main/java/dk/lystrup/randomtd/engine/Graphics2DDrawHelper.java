@@ -39,12 +39,19 @@ public class Graphics2DDrawHelper implements DrawHelper {
         double correctedX = x * pixelsPerMeterWidth;
         double correctedY = y * pixelsPerMeterHeight;
         
-        g2.setColor(color);
-        g2.drawRect((int) correctedX, (int) correctedY, (int) correctedWidth, (int) correctedHeight);
+        
     }
 
     @Override
     public void fillRectangle(double x, double y, double width, double height, Color color) {
     }
-    
+
+    private void rectangle(double x, double y, double w, double h, Color c, boolean fill) {
+        g2.setColor(c);
+        if(fill) {
+            g2.drawRect((int) x, (int) y, (int) w, (int) h);
+        } else {
+            g2.fillRect((int) x, (int) y, (int) w, (int) h);
+        }
+    }
 }

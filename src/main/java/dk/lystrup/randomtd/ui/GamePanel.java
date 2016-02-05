@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JPanel;
 
@@ -76,5 +78,9 @@ public class GamePanel extends JPanel {
         synchronized(entities) {
             entities.remove(e);
         }
+    }
+    
+    public Collection<Entity> getEntities() {
+        return Collections.unmodifiableList(entities);
     }
 }
