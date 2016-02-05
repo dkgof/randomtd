@@ -16,6 +16,8 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
  */
 public abstract class Projectile extends Entity {
 
+    private static final double COLLISION_RADIUS = 10;
+
     public enum DamageType {
 
         //(none, light, medium, heavy)
@@ -32,11 +34,11 @@ public abstract class Projectile extends Entity {
             Map<ArmorType, Double> dmgMap = new HashMap<>();
 
             int i = 0;
-            for(ArmorType armorType : ArmorType.values()){
+            for (ArmorType armorType : ArmorType.values()) {
                 dmgMap.put(armorType, multipliers[i]);
-                i++;    
+                i++;
             }
-            
+
             return dmgMap;
         }
 
@@ -44,22 +46,35 @@ public abstract class Projectile extends Entity {
             return damageMultipliers.get(armor);
         }
     }
-    
-    protected Entity target;
+
+    protected NPC target;
     protected double speed;
-    
-    public Projectile(double x, double y) {
+    protected int damage;
+    protected DamageType type;
+
+    public Projectile(double x, double y, NPC target, double speed, int damage, DamageType type) {
         super(x, y);
+        this.target = target;
+        this.speed = speed;
+        this.damage = damage;
+        this.type = type;
     }
 
     @Override
     public void tick(double deltaTime) {
         Vector2D targetVector = new Vector2D(target.getX(), target.getY());
         Vector2D myVector = new Vector2D(x, y);
-        
+
         Vector2D dirVector = targetVector.subtract(myVector);
-        Vector2D norm = dirVector.normalize();
-        x += speed*norm.getX()*deltaTime;
-        y += speed*norm.getY()*deltaTime;
+        //check for collision
+        if (dirVector.getNorm() < COLLISION_RADIUS) {
+            //collision happened, do something
+            target.doDamage(this);
+        } else {
+            //otherwise move towards target
+            Vector2D norm = dirVector.normalize();
+            x += speed * norm.getX() * deltaTime;
+            y += speed * norm.getY() * deltaTime;
+        }
     }
 }
