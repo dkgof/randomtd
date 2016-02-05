@@ -9,6 +9,6 @@ package dk.lystrup.randomtd.domain;
  *
  * @author rolf
  */
-public interface Projectile {
+public abstract class Projectile {
     
 }

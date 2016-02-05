@@ -9,6 +9,6 @@ package dk.lystrup.randomtd.domain;
  *
  * @author rolf
  */
-public interface Tower {
+public abstract class Tower {
     
 }
