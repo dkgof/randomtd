@@ -1,0 +1,29 @@
+#####BASIC ARROW TOWER#####
+Model:		'Tower_BasicArrow'
+Shoots: 	'Projectile_Arrow' at target
+Damage type: 	Physical
+Specials: 	None
+
+
+
+#####TESLA TOWER#####
+Model:		'Tower_Tesla'
+Shoots:		'Protectile_LightningBall' at target
+Damage type:	Electrical
+Specials:	Bouncing shoots
+
+
+
+#####GRAVE TOWER#####
+Model:		'Tower_Grave'
+Shoots:		'Projectile_HolyGrenade' at target
+Damage type:	Explosive
+Specials: 	'Effect_Explosion' splash damage at target
+
+
+
+#####FIRE PLACE TOWER#####
+Model:		'Tower_FirePlace'
+Shoots:		'Projectile_FireBall' at target
+Damage type:	Fire
+Specials:	'Effect_Fire' burn damage over time
