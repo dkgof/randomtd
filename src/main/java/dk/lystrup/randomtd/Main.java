@@ -17,6 +17,6 @@ public class Main {
     public static void main(String[] args) {
         new MainWindow();
         
-        GamePanel.instance().addEntity(new ArrowTower(200, 200));
+        GamePanel.instance().addEntity(new ArrowTower(20, 20));
     }
 }
