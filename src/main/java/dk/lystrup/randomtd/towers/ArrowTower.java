@@ -15,8 +15,8 @@ import java.awt.Color;
  */
 public class ArrowTower extends Tower{
     
-    private static final int TOWER_WIDTH = 20;
-    private static final int TOWER_HEIGHT = 25;
+    private static final int TOWER_WIDTH = 5;
+    private static final int TOWER_HEIGHT = 5;
     
     private double fireCooldown;
     private double fireTimer;

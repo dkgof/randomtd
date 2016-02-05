@@ -15,7 +15,7 @@ import java.awt.Image;
  */
 public class Graphics2DDrawHelper implements DrawHelper {
 
-    private static final int GAME_SIZE_IN_METERS = 100;
+    private static final double GAME_SIZE_IN_METERS = 100;
     
     private final Graphics2D g2;
     private final double pixelsPerMeterWidth;
@@ -24,34 +24,42 @@ public class Graphics2DDrawHelper implements DrawHelper {
     public Graphics2DDrawHelper(Graphics2D g2, int width, int height) {
         this.g2 = g2;
         this.pixelsPerMeterWidth = width / GAME_SIZE_IN_METERS;
-        this.pixelsPerMeterHeight = height / GAME_SIZE_IN_METERS;
+        this.pixelsPerMeterHeight = this.pixelsPerMeterWidth;
     }
     
     @Override
     public void drawImage(double x, double y, double width, double height, Image img) {
-    }
-
-    @Override
-    public void drawRectangle(double x, double y, double width, double height, Color color) {
         double correctedWidth = width * pixelsPerMeterWidth;
         double correctedHeight = height * pixelsPerMeterHeight;
         
         double correctedX = x * pixelsPerMeterWidth;
         double correctedY = y * pixelsPerMeterHeight;
         
-        
+        g2.drawImage(img, (int) correctedX, (int) correctedY, (int) correctedWidth, (int) correctedHeight, null);
+    }
+
+    @Override
+    public void drawRectangle(double x, double y, double width, double height, Color color) {
+        rectangle(x, y, width, height, color, false);
     }
 
     @Override
     public void fillRectangle(double x, double y, double width, double height, Color color) {
+        rectangle(x, y, width, height, color, true);
     }
 
     private void rectangle(double x, double y, double w, double h, Color c, boolean fill) {
+        double correctedWidth = w * pixelsPerMeterWidth;
+        double correctedHeight = h * pixelsPerMeterHeight;
+        
+        double correctedX = x * pixelsPerMeterWidth;
+        double correctedY = y * pixelsPerMeterHeight;
+        
         g2.setColor(c);
         if(fill) {
-            g2.drawRect((int) x, (int) y, (int) w, (int) h);
+            g2.fillRect((int) correctedX, (int) correctedY, (int) correctedWidth, (int) correctedHeight);
         } else {
-            g2.fillRect((int) x, (int) y, (int) w, (int) h);
+            g2.drawRect((int) correctedX, (int) correctedY, (int) correctedWidth, (int) correctedHeight);
         }
     }
 }

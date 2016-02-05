@@ -39,11 +39,11 @@ public class GamePanel extends JPanel {
         entities = new ArrayList<>();
     }
     
-    private long lastTime;
+    private long lastTime = -1;
     
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponents(g);
+        super.paintComponent(g);
         
         Graphics2D g2 = (Graphics2D) g;
 
@@ -51,6 +51,10 @@ public class GamePanel extends JPanel {
         g2.clearRect(0, 0, this.getWidth(), this.getHeight());
         
         synchronized(entities) {
+            
+            if(lastTime == -1) {
+                lastTime = System.nanoTime();
+            }
             
             double deltaTime = (System.nanoTime() - lastTime) / 1000000000.0;
             
@@ -60,7 +64,7 @@ public class GamePanel extends JPanel {
 
             DrawHelper draw = new Graphics2DDrawHelper(g2, this.getWidth(), this.getHeight());
             
-            entities.parallelStream().forEach((entity) -> {
+            entities.stream().forEach((entity) -> {
                 entity.draw(draw);
             });
             
