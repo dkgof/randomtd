@@ -11,6 +11,9 @@ package dk.lystrup.randomtd.domain;
  */
 public abstract class NPC extends Entity {
     
+    /**
+     * Declare new armor types last.
+     */
     public enum ArmorType {
         NONE,
         LIGHT,
