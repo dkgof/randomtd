@@ -9,9 +9,12 @@ import dk.lystrup.randomtd.domain.NPC.ArmorType;
 import dk.lystrup.randomtd.engine.DrawHelper;
 import dk.lystrup.randomtd.towers.ArrowTower;
 import dk.lystrup.randomtd.ui.GamePanel;
+import dk.lystrup.randomtd.util.EntityUtil;
+import dk.lystrup.randomtd.util.Pair;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,8 +34,8 @@ public abstract class Projectile extends Entity {
         //(none, light, medium, heavy)
         PHYSICAL(generateDamageMap(1.1, 1.0, 0.9, 0.8)),
         MAGICAL(generateDamageMap(1, 0.8, 0.9, 1.1)),
-        ELECTRICAL(generateDamageMap(1,1,1,1)),
-        EXPLOSIVE(generateDamageMap(1,1,1,1));
+        ELECTRICAL(generateDamageMap(1, 1, 1, 1)),
+        EXPLOSIVE(generateDamageMap(1, 1, 1, 1));
 
         DamageType(Map<ArmorType, Double> dmgMap) {
             damageMultipliers = dmgMap;
@@ -60,13 +63,19 @@ public abstract class Projectile extends Entity {
     private BufferedImage img;
     private final String imagePath;
     private final double width, height;
-    
+
     protected NPC target;
     protected double speed;
     protected double damage;
+    protected double splashRadius;
+    protected double minSplashFactor;
     protected DamageType damageType;
 
     public Projectile(double x, double y, NPC target, double speed, double damage, DamageType type, String imagePath, double width, double height) {
+        this(x, y, target, speed, damage, 0, 0, type, imagePath, width, height);
+    }
+    
+    public Projectile(double x, double y, NPC target, double speed, double damage, double splashRadius, double minSplashFactor, DamageType type, String imagePath, double width, double height) {
         super(x, y);
         this.target = target;
         this.speed = speed;
@@ -75,7 +84,11 @@ public abstract class Projectile extends Entity {
         this.imagePath = imagePath;
         this.width = width;
         this.height = height;
+        this.splashRadius = splashRadius;
+        this.minSplashFactor = minSplashFactor;
     }
+    
+    
 
     @Override
     public void tick(double deltaTime) {
@@ -87,6 +100,18 @@ public abstract class Projectile extends Entity {
         if (dirVector.getNorm() < COLLISION_RADIUS) {
             //collision happened, do something
             target.doDamage(this, damage);
+            if (splashRadius > 0) {
+                List<Pair<Entity, Double>> explosionTargets = EntityUtil.entitiesInRangeOfType(x, y, splashRadius, NPC.class, target);
+                NPC npc;
+                double splashFactor, relativeDist;
+                for (Pair<Entity, Double> t : explosionTargets) {
+                    npc = (NPC) t.first;
+                    //TODO reduce damage based on distance to center of explosion
+                    relativeDist = t.second/splashRadius;
+                    splashFactor = 1 - relativeDist*(1-minSplashFactor);
+                    npc.doDamage(this, damage * splashFactor);
+                }
+            }
             onDeath();
             GamePanel.instance().removeEntity(this);
         } else {
@@ -96,10 +121,10 @@ public abstract class Projectile extends Entity {
             y += speed * norm.getY() * deltaTime;
         }
     }
-    
+
     @Override
     public void draw(DrawHelper draw) {
-        if(img == null) {
+        if (img == null) {
             try {
                 img = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(imagePath));
             } catch (IOException ex) {
@@ -116,19 +141,18 @@ public abstract class Projectile extends Entity {
     public DamageType getDamageType() {
         return damageType;
     }
-    
     public double getAngle() {
         Vector2D targetVector = new Vector2D(target.getX(), target.getY());
         Vector2D myVector = new Vector2D(x, y);
 
         Vector2D dirVector = targetVector.subtract(myVector);
-        Vector2D normalVector = new Vector2D(1,0);
-        
+        Vector2D normalVector = new Vector2D(1, 0);
+
         double dot = dirVector.dotProduct(normalVector);
         double det = dirVector.getX() * normalVector.getY() + normalVector.getX() * dirVector.getY();
         return Math.atan2(det, dot);
 
     }
-    
+
     protected abstract void onDeath();
 }

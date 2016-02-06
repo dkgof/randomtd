@@ -44,14 +44,14 @@ public class EntityUtil {
         }
     }
     
-    public static List<Entity> entitiesInRangeOfType(double x, double y, double maxDistance, Class parentClass, Entity exclude){
+    public static List<Pair<Entity, Double>> entitiesInRangeOfType(double x, double y, double maxDistance, Class parentClass, Entity exclude){
         Collection<Entity> potentialEntities = GamePanel.instance().getEntities();
         if (potentialEntities.isEmpty()) {
             return null;
         }
         //just some large number...
         double dist;
-        List<Entity> res = new ArrayList<>();
+        List<Pair<Entity, Double>> res = new ArrayList<>();
         Vector2D fromPoint = new Vector2D(x, y);
         for (Entity e : potentialEntities) {
             if (!(parentClass.isInstance(e)) || (e == exclude)) {
@@ -59,7 +59,7 @@ public class EntityUtil {
             }
             dist = Vector2D.distance(fromPoint, new Vector2D(e.getX(), e.getY()));
             if (dist < maxDistance) {
-                res.add(e);
+                res.add(new Pair(e, dist));
             }
         }
         return res;

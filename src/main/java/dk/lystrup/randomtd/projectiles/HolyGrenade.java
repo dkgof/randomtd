@@ -5,34 +5,26 @@
  */
 package dk.lystrup.randomtd.projectiles;
 
-import dk.lystrup.randomtd.domain.Entity;
+import dk.lystrup.randomtd.domain.Effect;
 import dk.lystrup.randomtd.domain.NPC;
 import dk.lystrup.randomtd.domain.Projectile;
-import dk.lystrup.randomtd.util.EntityUtil;
-import java.util.Iterator;
-import java.util.List;
+import dk.lystrup.randomtd.ui.GamePanel;
 
 /**
  *
  * @author Thor
  */
 public class HolyGrenade extends Projectile {
-
-    private final double explosionRadius;
     
-    public HolyGrenade(double x, double y, NPC target, double speed, double damage, DamageType type, double explosionRadius) {
-        super(x, y, target, speed, damage, type, "images/projectiles/Projectile_HolyGrenade.png", 2, 2);
-        this.explosionRadius = explosionRadius;
+    private static final String EXPLOSION_FX_PATH = "images/effects/Effect_Explosion.png";
+    
+    public HolyGrenade(double x, double y, NPC target, double speed, double damage, double splashRadius, double minSplashDamage, DamageType type) {
+        super(x, y, target, speed, damage, splashRadius, minSplashDamage, type, "images/projectiles/Projectile_HolyGrenade.png", 2, 2);
     }
 
     @Override
     protected void onDeath() {
-        List<Entity> explosionTargets =  EntityUtil.entitiesInRangeOfType(x, y, explosionRadius, NPC.class, target);
-        NPC npc;
-        for (Entity e : explosionTargets) {
-            npc = (NPC) e;
-            //TODO reduce damage based on distance to center of explosion
-            npc.doDamage(this, damage);
-        }
+        Effect fx = new Effect(x, y, 0.1, splashRadius, 0.1, EXPLOSION_FX_PATH);
+        GamePanel.instance().addEntity(fx);
     }
 }
