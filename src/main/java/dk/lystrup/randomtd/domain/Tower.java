@@ -53,6 +53,8 @@ public abstract class Tower extends Entity {
         if (fireTimer >= getFireRate()) {
             if (shootProjectile()) {
                 fireTimer -= getFireRate();
+            }else{
+                fireTimer = getFireRate();
             }
         }
     }
@@ -88,6 +90,10 @@ public abstract class Tower extends Entity {
     public void setLevel(int level) {
         this.level = level;
     }
+    
+    public void levelUp() {
+        this.level++;
+    }
 
     protected abstract Projectile generateProjectile(NPC target);
 
@@ -98,4 +104,12 @@ public abstract class Tower extends Entity {
     protected abstract double getFireRate();
 
     protected abstract double getProjectileSpeed();
+    
+    protected double getSplashRadius(){
+        return 0;
+    }
+    
+    protected double getMinSplashFactor(){
+        return 0;
+    }
 }

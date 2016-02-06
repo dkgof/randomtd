@@ -39,7 +39,7 @@ public class LightningBall extends Projectile{
     }
     
     @Override
-    protected void onCollision() {
+    protected void onCollision(Entity t, boolean isPrimaryTarget) {
         if(Math.random() > bounceChance){
             return;
         }
