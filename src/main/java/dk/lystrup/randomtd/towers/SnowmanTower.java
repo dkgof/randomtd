@@ -24,7 +24,7 @@ public class SnowmanTower extends Tower {
 
     @Override
     protected Projectile generateProjectile(NPC target) {
-        return new Snowball(x, y, target, this, getProjectileSpeed(), getDamage(), Projectile.DamageType.COLD, getSlowDuration(), getSlowFactor());
+        return new Snowball(x, y, target, this, getProjectileSpeed(), getDamage(), getSplashRadius(), getMinSplashFactor(), Projectile.DamageType.COLD, getSlowDuration(), getSlowFactor());
     }
 
     @Override
@@ -54,5 +54,20 @@ public class SnowmanTower extends Tower {
     protected double getSlowFactor(){
         return 0.5;
     }
+
+    @Override
+    protected double getSplashRadius() {
+        if(level >= 5){
+            return 5 + level;
+        }
+        return 0;
+    }
+
+    @Override
+    protected double getMinSplashFactor() {
+        return 0.2;
+    }
+    
+    
 
 }
