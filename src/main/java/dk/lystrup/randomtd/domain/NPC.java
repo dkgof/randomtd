@@ -40,6 +40,7 @@ public abstract class NPC extends Entity {
     }
 
     private BufferedImage img;
+    private boolean alive;
     private final String imagePath;
     private final double width, height;
        
@@ -71,6 +72,13 @@ public abstract class NPC extends Entity {
         pathIndex = 0;
     }
 
+    /**
+     * Deal damage to this target
+     * @param damageDealer damage dealer, used to apply buff modifiers.
+     * @param type Damage type of the damage to be dealt.
+     * @param amount amount of damage to be dealt (before buffs)
+     * @return true if the target is alive after taking damage
+     */
     public void doDamage(Entity damageDealer, DamageType type, double amount) {
         double dmg = (amount - armor) * type.getDamageVersus(armorType);
         //buffs changing damage done and taken are applied after reductions

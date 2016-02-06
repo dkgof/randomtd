@@ -139,6 +139,7 @@ public class GamePanel extends JPanel {
     }
 
     public void removeEntity(Entity e) {
+        e.setIsActive(false);
         removeEntities.add(e);
     }
 
