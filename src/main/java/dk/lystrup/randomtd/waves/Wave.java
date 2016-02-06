@@ -5,7 +5,9 @@
  */
 package dk.lystrup.randomtd.waves;
 
+import dk.lystrup.randomtd.domain.NPC;
 import dk.lystrup.randomtd.domain.NPC.ArmorType;
+import dk.lystrup.randomtd.npcs.BasicNPC;
 
 /**
  *
@@ -29,5 +31,9 @@ public class Wave {
         this.armorType = armorType;
         this.spawnInterval = spawnInterval;
         this.waveAmount = waveAmount;
+    }
+    
+    public NPC createWaveNPC(){
+        return new BasicNPC(name, model, size, health, armor, armorType, movementSpeed);
     }
 }
