@@ -21,8 +21,8 @@ public class Snowball extends Projectile {
 
     private final double slowFactor, slowDuration;
 
-    public Snowball(double x, double y, NPC target, Entity owner, double speed, double damage, DamageType type, double slowDuration, double slowFactor) {
-        super(x, y, target, owner, speed, damage, type, SNOWBALL_PATH, 2, 2);
+    public Snowball(double x, double y, NPC target, Entity owner, double speed, double damage, double splashRadius, double minSplashFactor, DamageType type, double slowDuration, double slowFactor) {
+        super(x, y, target, owner, speed, damage, splashRadius, minSplashFactor, type, SNOWBALL_PATH, 2, 2);
         this.slowFactor = slowFactor;
         this.slowDuration = slowDuration;
     }

@@ -27,7 +27,6 @@ public class Main {
         GamePanel.instance().setLevelImages("./images/maps/#1 Background.png", "./images/maps/#1 NpcPath.png", "./images/maps/#1 TowerMask.png");
 
         Tower tower = new GraveTower(25, 30);
-        tower.setLevel(4);
         GamePanel.instance().addEntity(tower);
         tower = new DiamondTower(30, 30);
         GamePanel.instance().addEntity(tower);
@@ -36,6 +35,9 @@ public class Main {
 
         for (int i = 0; i < 100; i++) {
             GamePanel.instance().addEntity(new SpiderNPC());
+            if(i == 10){
+                tower.setLevel(5);
+            }
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
