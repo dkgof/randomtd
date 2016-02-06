@@ -95,4 +95,10 @@ public class Graphics2DDrawHelper implements DrawHelper {
         g2.setColor(color);
         g2.drawRect((int) correctedX, (int) correctedY, (int) correctedWidth, (int) correctedHeight);
     }
+
+    @Override
+    public void drawString(double x, double y, String label, Color c) {
+        g2.setColor(c);
+        g2.drawString(label, (int) x, (int) y);
+    }
 }

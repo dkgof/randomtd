@@ -5,7 +5,6 @@
  */
 package dk.lystrup.randomtd.ui;
 
-import com.sun.glass.ui.Pixels;
 import dk.lystrup.randomtd.domain.Entity;
 import dk.lystrup.randomtd.engine.DrawHelper;
 import dk.lystrup.randomtd.engine.Graphics2DDrawHelper;
@@ -13,9 +12,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.Path2D;
-import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -59,10 +55,14 @@ public class GamePanel extends JPanel {
 
     private ArrayList<Vector2D> npcPath;
 
+    private int livesLeft;
+    
     private GamePanel() {
         entities = new ArrayList<>();
         addEntities = new ArrayList<>();
         removeEntities = new ArrayList<>();
+        
+        livesLeft = 25;
     }
 
     public void setLevelImages(String background, String path, String towers) {
@@ -121,6 +121,8 @@ public class GamePanel extends JPanel {
         draw.drawDebug(spawnRect, Color.green);
         draw.drawDebug(deSpawnRect, Color.red);
 
+        draw.drawString(2, 15, "Lives: "+livesLeft, Color.orange);
+        
         lastTime = System.nanoTime();
     }
 
