@@ -106,7 +106,7 @@ public abstract class Projectile extends Entity {
                 Logger.getLogger(ArrowTower.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        draw.drawImage(x, y, width, height, img);
+        draw.drawImage(x, y, width, height, img, getAngle());
     }
 
     public double getDamage() {

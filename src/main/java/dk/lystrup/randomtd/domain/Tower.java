@@ -8,6 +8,7 @@ package dk.lystrup.randomtd.domain;
 import dk.lystrup.randomtd.engine.DrawHelper;
 import dk.lystrup.randomtd.towers.TeslaTower;
 import dk.lystrup.randomtd.ui.GamePanel;
+import dk.lystrup.randomtd.util.EntityUtil;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Collection;
@@ -21,11 +22,11 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
  * @author rolf
  */
 public abstract class Tower extends Entity {
-    
+
     private double towerWidth, towerHeight;
     private double fireTimer;
     private String imagePath;
-    
+
     protected int level;
     private BufferedImage img;
 
@@ -34,13 +35,11 @@ public abstract class Tower extends Entity {
         this.towerWidth = towerWidth;
         this.towerHeight = towerHeight;
         this.imagePath = imagePath;
-        
+
         this.fireTimer = 0;
         this.level = 0;
     }
 
-    
-    
     public Tower(double x, double y) {
         super(x, y);
         level = 0;
@@ -65,7 +64,7 @@ public abstract class Tower extends Entity {
                 Logger.getLogger(TeslaTower.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        draw.drawImage(x, y, towerWidth, towerHeight, img);
+        draw.drawImage(x, y, towerWidth, towerHeight, img, 0);
     }
 
     /**
@@ -75,33 +74,17 @@ public abstract class Tower extends Entity {
      */
     protected boolean shootProjectile() {
         //TODO need a way to find and target NPCs.
-        Collection<Entity> targets = GamePanel.instance().getEntities();
-        if (targets.isEmpty()) {
-            return false;
-        }
-        //just some large number...
-        double closestDistance = 99999;
-        double dist;
-        Entity closest = null;
-        Vector2D selfVector = new Vector2D(x, y);
-        for (Entity e : targets) {
-            if (!(e instanceof NPC)) {
-                continue;
-            }
-            dist = Vector2D.distance(selfVector, new Vector2D(e.getX(), e.getY()));
-            if (dist < closestDistance) {
-                closestDistance = dist;
-                closest = e;
-            }
-        }
+        NPC closest = (NPC) EntityUtil.closestEntityOfType(x, y, getRange(), NPC.class, null);
         if (closest != null) {
-            if (closestDistance <= getRange()) {
-                Projectile p = generateProjectile((NPC) closest);
-                GamePanel.instance().addEntity(p);
-                return true;
-            }
+            Projectile p = generateProjectile((NPC) closest);
+            GamePanel.instance().addEntity(p);
+            return true;
         }
         return false;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     protected abstract Projectile generateProjectile(NPC target);
@@ -109,7 +92,7 @@ public abstract class Tower extends Entity {
     protected abstract double getDamage();
 
     protected abstract double getRange();
-    
+
     protected abstract double getFireRate();
 
     protected abstract double getProjectileSpeed();

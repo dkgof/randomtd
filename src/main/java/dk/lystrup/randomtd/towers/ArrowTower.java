@@ -15,9 +15,9 @@ import dk.lystrup.randomtd.projectiles.Arrow;
  * @author Thor
  */
 public class ArrowTower extends Tower {
-    
-    private static final String IMAGE_PATH = "images/towers/Tower_Tesla.png";
-    
+
+    private static final String IMAGE_PATH = "images/towers/Tower_BasicArrow.png";
+
     public ArrowTower(double x, double y) {
         super(x, y, 5, 5, IMAGE_PATH);
     }
@@ -44,7 +44,7 @@ public class ArrowTower extends Tower {
 
     @Override
     protected double getFireRate() {
-        return 0.8;
+        return Math.max(0.1, 0.8 - 0.05 * level);
     }
 
 }
