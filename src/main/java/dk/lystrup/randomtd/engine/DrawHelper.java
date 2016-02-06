@@ -23,4 +23,6 @@ public interface DrawHelper {
     public void drawBackground(Image background);
 
     public void drawDebug(Rectangle2D.Double spawnRect, Color color);
+
+    public void drawString(double x, double y, String label, Color c);
 }
