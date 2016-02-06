@@ -12,7 +12,9 @@ import dk.lystrup.randomtd.towers.GraveTower;
 import dk.lystrup.randomtd.towers.SnowmanTower;
 import dk.lystrup.randomtd.ui.GamePanel;
 import dk.lystrup.randomtd.ui.MainWindow;
+import dk.lystrup.randomtd.waves.Wave;
 import dk.lystrup.randomtd.waves.WaveLoader;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,10 +26,9 @@ public class Main {
 
     public static void main(String[] args) {
         new MainWindow();
-
-        WaveLoader.parseWaves("./xml/waves.xml");
         
         GamePanel.instance().setLevelImages("./images/maps/#1 Background.png", "./images/maps/#1 NpcPath.png", "./images/maps/#1 TowerMask.png");
+        GamePanel.instance().loadWaves("./xml/waves.xml");
 
         Tower tower = new GraveTower(25, 30);
         GamePanel.instance().addEntity(tower);
@@ -35,17 +36,5 @@ public class Main {
         GamePanel.instance().addEntity(tower);
         tower = new SnowmanTower(30, 40);
         GamePanel.instance().addEntity(tower);
-
-        for (int i = 0; i < 100; i++) {
-            GamePanel.instance().addEntity(new SpiderNPC());
-            if(i == 10){
-                tower.setLevel(5);
-            }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
 }

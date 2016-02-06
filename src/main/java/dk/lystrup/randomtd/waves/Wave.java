@@ -36,4 +36,12 @@ public class Wave {
     public NPC createWaveNPC(){
         return new BasicNPC(name, model, size, health, armor, armorType, movementSpeed);
     }
+
+    public int getWaveAmount() {
+        return waveAmount;
+    }
+
+    public double getSpawnInterval() {
+        return spawnInterval;
+    }
 }

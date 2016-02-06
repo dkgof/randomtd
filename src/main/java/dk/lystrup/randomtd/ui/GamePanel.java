@@ -8,6 +8,8 @@ package dk.lystrup.randomtd.ui;
 import dk.lystrup.randomtd.domain.Entity;
 import dk.lystrup.randomtd.engine.DrawHelper;
 import dk.lystrup.randomtd.engine.Graphics2DDrawHelper;
+import dk.lystrup.randomtd.waves.Wave;
+import dk.lystrup.randomtd.waves.WaveLoader;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -45,6 +47,8 @@ public class GamePanel extends JPanel {
     private final List<Entity> entities;
     private final List<Entity> addEntities;
     private final List<Entity> removeEntities;
+    
+    private List<Wave> waves;
 
     private BufferedImage background;
     private BufferedImage pathMask;
@@ -86,6 +90,10 @@ public class GamePanel extends JPanel {
         } catch (IOException ex) {
             Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void loadWaves(String xmlFile) {
+        waves = WaveLoader.parseWaves(xmlFile);
     }
 
     private long lastTime = -1;
