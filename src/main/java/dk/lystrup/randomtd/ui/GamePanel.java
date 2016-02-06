@@ -66,15 +66,23 @@ public class GamePanel extends JPanel {
     }
 
     public void setLevelImages(String background, String path, String towers) {
+        System.out.println("Loading level graphics...");
+        
         try {
             this.background = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(background));
             this.pathMask = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(path));
             this.towerMask = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(towers));
 
+            System.out.println("Finding spawn / despawn...");
+            
             spawnRect = findHotspot(this.pathMask, new Color(0, 255, 0));
             deSpawnRect = findHotspot(this.pathMask, new Color(255, 0, 0));
 
-            npcPath = findPath(spawnRect, deSpawnRect, this.pathMask.getRaster().getPixels(0, 0, this.pathMask.getWidth(), this.pathMask.getHeight(), (int[]) null));
+            System.out.println("Loading path...");
+            
+            npcPath = findPath(spawnRect, deSpawnRect);
+            
+            System.out.println("Done.");
         } catch (IOException ex) {
             Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -148,7 +156,7 @@ public class GamePanel extends JPanel {
         return new Dimension((int) largestSize, (int) largestSize);
     }
 
-    private ArrayList<Vector2D> findPath(Rectangle2D.Double start, Rectangle2D.Double end, int[] rgbPixels) {
+    private ArrayList<Vector2D> findPath(Rectangle2D.Double start, Rectangle2D.Double end) {
         int[][] pixels = new int[this.pathMask.getWidth()][this.pathMask.getHeight()];
 
         for (int i = 0; i < pixels.length; i++) {
@@ -165,7 +173,7 @@ public class GamePanel extends JPanel {
         pixelsToCheck.add(new Vector2D((int) (getStartX() * pixelsPerMeter), (int) (getStartY() * pixelsPerMeter)));
 
         while (!pixelsToCheck.isEmpty()) {
-            pixelsToCheck = bangPixels(pixels, pixelsToCheck, currentLength, rgbPixels);
+            pixelsToCheck = bangPixels(pixels, pixelsToCheck, currentLength);
             currentLength++;
         }
 
@@ -269,28 +277,52 @@ public class GamePanel extends JPanel {
         return deSpawnRect.getY() + deSpawnRect.getHeight() / 2.0;
     }
 
-    private List<Vector2D> bangPixels(int[][] pixels, List<Vector2D> pixelsToCheck, int currentLength, int[] rgbPixels) {
+    private List<Vector2D> bangPixels(int[][] pixels, List<Vector2D> pixelsToCheck, int currentLength) {
         List<Vector2D> newPixelsToCheck = new ArrayList<>();
         
         for(Vector2D pixelToCheck : pixelsToCheck) {
             if(pixelToCheck != null) {
-                newPixelsToCheck.add(updatePixel((int)pixelToCheck.getX() - 1, (int)pixelToCheck.getY() - 1, currentLength, pixels, rgbPixels));
-                newPixelsToCheck.add(updatePixel((int)pixelToCheck.getX(), (int)pixelToCheck.getY() - 1, currentLength, pixels, rgbPixels));
-                newPixelsToCheck.add(updatePixel((int)pixelToCheck.getX() + 1, (int)pixelToCheck.getY() - 1, currentLength, pixels, rgbPixels));
+                Vector2D newPixelToCheck = updatePixel((int)pixelToCheck.getX() - 1, (int)pixelToCheck.getY() - 1, currentLength, pixels);
+                if(newPixelToCheck != null) {
+                    newPixelsToCheck.add(newPixelToCheck);
+                }
+                newPixelToCheck = updatePixel((int)pixelToCheck.getX(), (int)pixelToCheck.getY() - 1, currentLength, pixels);
+                if(newPixelToCheck != null) {
+                    newPixelsToCheck.add(newPixelToCheck);
+                }
+                newPixelToCheck = updatePixel((int)pixelToCheck.getX() + 1, (int)pixelToCheck.getY() - 1, currentLength, pixels);
+                if(newPixelToCheck != null) {
+                    newPixelsToCheck.add(newPixelToCheck);
+                }
 
-                newPixelsToCheck.add(updatePixel((int)pixelToCheck.getX() - 1, (int)pixelToCheck.getY(), currentLength, pixels, rgbPixels));
-                newPixelsToCheck.add(updatePixel((int)pixelToCheck.getX() + 1, (int)pixelToCheck.getY(), currentLength, pixels, rgbPixels));
+                newPixelToCheck = updatePixel((int)pixelToCheck.getX() - 1, (int)pixelToCheck.getY(), currentLength, pixels);
+                if(newPixelToCheck != null) {
+                    newPixelsToCheck.add(newPixelToCheck);
+                }
+                newPixelToCheck = updatePixel((int)pixelToCheck.getX() + 1, (int)pixelToCheck.getY(), currentLength, pixels);
+                if(newPixelToCheck != null) {
+                    newPixelsToCheck.add(newPixelToCheck);
+                }
 
-                newPixelsToCheck.add(updatePixel((int)pixelToCheck.getX() - 1, (int)pixelToCheck.getY() + 1, currentLength, pixels, rgbPixels));
-                newPixelsToCheck.add(updatePixel((int)pixelToCheck.getX(), (int)pixelToCheck.getY() + 1, currentLength, pixels, rgbPixels));
-                newPixelsToCheck.add(updatePixel((int)pixelToCheck.getX() + 1, (int)pixelToCheck.getY() + 1, currentLength, pixels, rgbPixels));
+                newPixelToCheck = updatePixel((int)pixelToCheck.getX() - 1, (int)pixelToCheck.getY() + 1, currentLength, pixels);
+                if(newPixelToCheck != null) {
+                    newPixelsToCheck.add(newPixelToCheck);
+                }
+                newPixelToCheck = updatePixel((int)pixelToCheck.getX(), (int)pixelToCheck.getY() + 1, currentLength, pixels);
+                if(newPixelToCheck != null) {
+                    newPixelsToCheck.add(newPixelToCheck);
+                }
+                newPixelToCheck = updatePixel((int)pixelToCheck.getX() + 1, (int)pixelToCheck.getY() + 1, currentLength, pixels);
+                if(newPixelToCheck != null) {
+                    newPixelsToCheck.add(newPixelToCheck);
+                }
             }
         }
         
         return newPixelsToCheck;
     }
 
-    private Vector2D updatePixel(int x, int y, int currentLength, int[][] pixels, int[] rgbPixels) {
+    private Vector2D updatePixel(int x, int y, int currentLength, int[][] pixels) {
         try {
             int foundLength = pixels[x][y];
 
@@ -298,11 +330,9 @@ public class GamePanel extends JPanel {
                 foundLength = Integer.MAX_VALUE;
             }
 
-            int r = rgbPixels[y * pixels.length * 4 + x * 4];
-            int g = rgbPixels[y * pixels.length * 4 + x * 4 + 1];
-            int b = rgbPixels[y * pixels.length * 4 + x * 4 + 2];
-            
-            if (!(r == 255 && g == 255 && b == 255) && currentLength + 1 < foundLength) {
+            Color maskColor = new Color(this.pathMask.getRGB(x, y));
+
+            if (!maskColor.equals(Color.white) && currentLength + 1 < foundLength) {
                 pixels[x][y] = currentLength + 1;
                 return new Vector2D(x, y);
             }
