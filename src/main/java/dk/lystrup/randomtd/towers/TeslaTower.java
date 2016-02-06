@@ -24,7 +24,7 @@ public class TeslaTower extends Tower {
 
     @Override
     protected Projectile generateProjectile(NPC target) {
-        return new LightningBall(x, y, target, getProjectileSpeed(), getDamage(), Projectile.DamageType.ELECTRICAL, getBounceRange(), getBounceChance());
+        return new LightningBall(x, y, target, this, getProjectileSpeed(), getDamage(), Projectile.DamageType.ELECTRICAL, getBounceRange(), getBounceChance());
     }
 
     @Override

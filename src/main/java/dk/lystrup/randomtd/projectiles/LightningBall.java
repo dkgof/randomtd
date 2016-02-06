@@ -23,12 +23,12 @@ public class LightningBall extends Projectile{
     private double bounceRange;
     private Queue<Entity> targetsHit;
     
-    public LightningBall(double x, double y, NPC target, double speed, double damage, DamageType type, double bounceRange, double bounceChance) {
-        this(x, y, target, speed, damage, type, bounceRange, bounceChance, new LinkedList<>());        
+    public LightningBall(double x, double y, NPC target, Entity owner, double speed, double damage, DamageType type, double bounceRange, double bounceChance) {
+        this(x, y, target, owner, speed, damage, type, bounceRange, bounceChance, new LinkedList<>());        
     }
     
-    public LightningBall(double x, double y, NPC target, double speed, double damage, DamageType type, double bounceRange, double bounceChance, Queue<Entity> hits) {
-        super(x,y, target, speed, damage, type, "images/projectiles/Projectile_LightningBall.png", 1.5, 1.5);
+    public LightningBall(double x, double y, NPC target, Entity owner, double speed, double damage, DamageType type, double bounceRange, double bounceChance, Queue<Entity> hits) {
+        super(x,y, target, owner, speed, damage, type, "images/projectiles/Projectile_LightningBall.png", 1.5, 1.5);
         this.bounceChance = bounceChance;
         this.bounceRange = bounceRange;
         targetsHit = hits;
@@ -39,14 +39,14 @@ public class LightningBall extends Projectile{
     }
     
     @Override
-    protected void onDeath() {
+    protected void onCollision() {
         if(Math.random() > bounceChance){
             return;
         }
         NPC nextTarget = (NPC) EntityUtil.closestEntityOfType(x, y, bounceRange, NPC.class, targetsHit);
         //TODO next target always null right now
         if(nextTarget != null){
-            LightningBall nextBall = new LightningBall(x, y, nextTarget, speed, damage, damageType, bounceRange, bounceChance, targetsHit);
+            LightningBall nextBall = new LightningBall(x, y, nextTarget, owner, speed, damage, damageType, bounceRange, bounceChance, targetsHit);
             GamePanel.instance().addEntity(nextBall);
         }
     }
