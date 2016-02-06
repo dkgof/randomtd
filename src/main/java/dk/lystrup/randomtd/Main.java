@@ -8,7 +8,7 @@ package dk.lystrup.randomtd;
 import dk.lystrup.randomtd.domain.Tower;
 import dk.lystrup.randomtd.npcs.SpiderNPC;
 import dk.lystrup.randomtd.towers.DiamondTower;
-import dk.lystrup.randomtd.towers.FirePlaceTower;
+import dk.lystrup.randomtd.towers.GraveTower;
 import dk.lystrup.randomtd.towers.SnowmanTower;
 import dk.lystrup.randomtd.ui.GamePanel;
 import dk.lystrup.randomtd.ui.MainWindow;
@@ -26,7 +26,7 @@ public class Main {
 
         GamePanel.instance().setLevelImages("./images/maps/#1 Background.png", "./images/maps/#1 NpcPath.png", "./images/maps/#1 TowerMask.png");
 
-        Tower tower = new FirePlaceTower(25, 30);
+        Tower tower = new GraveTower(25, 30);
         GamePanel.instance().addEntity(tower);
         tower = new DiamondTower(30, 30);
         GamePanel.instance().addEntity(tower);
@@ -35,6 +35,9 @@ public class Main {
 
         for (int i = 0; i < 100; i++) {
             GamePanel.instance().addEntity(new SpiderNPC());
+            if(i == 10){
+                tower.setLevel(5);
+            }
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {

@@ -17,12 +17,10 @@ import java.util.List;
 public abstract class Entity {
 
     protected final List<Buff> buffs, addBuffs, removeBuffs;
-
     protected double x;
-
     protected double y;
-
     protected String name;
+    protected boolean isActive;
 
     public abstract void draw(DrawHelper draw);
 
@@ -45,6 +43,7 @@ public abstract class Entity {
         buffs = new ArrayList<>();
         addBuffs = new ArrayList<>();
         removeBuffs = new ArrayList<>();
+        isActive = true;
     }
 
     public void addBuff(Buff b) {
@@ -124,5 +123,13 @@ public abstract class Entity {
         synchronized (buffs) {
             return buffs.stream().anyMatch((buff) -> buff.getId().equals(BuffUtil.getBuffId(c)));
         }
+    }
+    
+    public boolean isActive(){
+        return isActive;
+    }
+    
+    public void setIsActive(boolean value){
+        isActive = value;
     }
 }

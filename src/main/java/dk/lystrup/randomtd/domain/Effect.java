@@ -111,6 +111,9 @@ public class Effect extends Entity{
     public void tick(double deltaTime) {
         super.tick(deltaTime);
         if(target != null){
+            if(!target.isActive()){
+                destroy();
+            }
             x = target.x + offsetX;
             y = target.y + offsetY;
         }

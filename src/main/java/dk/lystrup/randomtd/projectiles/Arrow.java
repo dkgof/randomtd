@@ -18,9 +18,4 @@ public class Arrow extends Projectile {
     public Arrow(double x, double y, NPC target, Entity owner, double speed, double damage, DamageType type) {
         super(x, y, target, owner, speed, damage, type, "images/projectiles/Projectile_Arrow.png", 2, 0.5);
     }
-
-    @Override
-    protected void onCollision() {
-
-    }
 }

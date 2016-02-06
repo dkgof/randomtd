@@ -77,7 +77,7 @@ public abstract class Projectile extends Entity {
     public Projectile(double x, double y, NPC target, Entity owner, double speed, double damage, DamageType type, String imagePath, double width, double height) {
         this(x, y, target, owner, speed, damage, 0, 0, type, imagePath, width, height);
     }
-    
+
     public Projectile(double x, double y, NPC target, Entity owner, double speed, double damage, double splashRadius, double minSplashFactor, DamageType type, String imagePath, double width, double height) {
         super(x, y);
         this.target = target;
@@ -91,8 +91,6 @@ public abstract class Projectile extends Entity {
         this.minSplashFactor = minSplashFactor;
         this.owner = owner;
     }
-    
-    
 
     @Override
     public void tick(double deltaTime) {
@@ -106,18 +104,21 @@ public abstract class Projectile extends Entity {
             //collision happened, do something
             //doDamage is responsible for factoring in buffs.
             target.doDamage(owner, damageType, damage);
+            onCollision(target, true);
+            
             if (splashRadius > 0) {
                 List<Pair<Entity, Double>> explosionTargets = EntityUtil.entitiesInRangeOfType(x, y, splashRadius, NPC.class, target);
                 NPC npc;
                 double splashFactor, relativeDist;
                 for (Pair<Entity, Double> t : explosionTargets) {
                     npc = (NPC) t.first;
-                    relativeDist = t.second/splashRadius;
-                    splashFactor = 1 - relativeDist*(1-minSplashFactor);
+                    relativeDist = t.second / splashRadius;
+                    splashFactor = 1 - relativeDist * (1 - minSplashFactor);
                     npc.doDamage(owner, damageType, damage * splashFactor);
+                    onCollision(npc, false);
                 }
             }
-            onCollision();
+            
             GamePanel.instance().removeEntity(this);
         } else {
             //otherwise move towards target
@@ -146,6 +147,7 @@ public abstract class Projectile extends Entity {
     public DamageType getDamageType() {
         return damageType;
     }
+
     public double getAngle() {
         Vector2D targetVector = new Vector2D(target.getX(), target.getY());
         Vector2D myVector = new Vector2D(x, y);
@@ -158,5 +160,6 @@ public abstract class Projectile extends Entity {
         return Math.atan2(det, dot);
     }
 
-    protected abstract void onCollision();
+    protected void onCollision(Entity target, boolean isPrimaryTarget){
+    }
 }
