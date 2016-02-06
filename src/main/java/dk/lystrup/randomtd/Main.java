@@ -8,6 +8,7 @@ package dk.lystrup.randomtd;
 import dk.lystrup.randomtd.domain.Tower;
 import dk.lystrup.randomtd.npcs.SpiderNPC;
 import dk.lystrup.randomtd.towers.ArrowTower;
+import dk.lystrup.randomtd.towers.GraveTower;
 import dk.lystrup.randomtd.towers.TeslaTower;
 import dk.lystrup.randomtd.ui.GamePanel;
 import dk.lystrup.randomtd.ui.MainWindow;
@@ -20,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
         new MainWindow();
         
-        Tower tower = new TeslaTower(20, 20);
+        Tower tower = new GraveTower(20, 20);
         GamePanel.instance().addEntity(tower);
         
         
