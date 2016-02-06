@@ -9,6 +9,7 @@ import dk.lystrup.randomtd.domain.Projectile.DamageType;
 import dk.lystrup.randomtd.engine.DrawHelper;
 import dk.lystrup.randomtd.towers.TeslaTower;
 import dk.lystrup.randomtd.ui.GamePanel;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,10 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
  * @author rolf
  */
 public abstract class NPC extends Entity {
+    
+    private static final double HEALTH_BAR_OFFSET = 1;
+    private static final double HEALTH_BAR_HEIGHT = 1;
+    private static final double HEALTH_BAR_MARGIN = 0.25;
 
     /**
      * Declare new armor types last.
@@ -89,6 +94,9 @@ public abstract class NPC extends Entity {
             }
         }
         draw.drawImage(x, y, width, height, img, getAngle());
+        draw.drawRectangle(x, y-HEALTH_BAR_OFFSET, width, HEALTH_BAR_HEIGHT, Color.black);
+        double healthFactor = currentHealth / maxHealth;
+        draw.fillRectangle(x + HEALTH_BAR_MARGIN, y-HEALTH_BAR_OFFSET + HEALTH_BAR_MARGIN, healthFactor*(width-2*HEALTH_BAR_MARGIN), HEALTH_BAR_HEIGHT - HEALTH_BAR_MARGIN, Color.green);
     }
     
     @Override

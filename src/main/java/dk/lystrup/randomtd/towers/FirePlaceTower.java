@@ -48,7 +48,7 @@ public class FirePlaceTower extends Tower {
     }
     
     protected double getFireDamage(){
-        return 35 + 5 * level;
+        return 60 + 5 * level;
     }
     
     protected double getFireDuration(){
