@@ -86,7 +86,7 @@ public abstract class Projectile extends Entity {
         //check for collision
         if (dirVector.getNorm() < COLLISION_RADIUS) {
             //collision happened, do something
-            target.doDamage(this);
+            target.doDamage(this, damage);
             onDeath();
             GamePanel.instance().removeEntity(this);
         } else {

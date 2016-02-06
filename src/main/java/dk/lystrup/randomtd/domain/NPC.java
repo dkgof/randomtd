@@ -40,8 +40,8 @@ public abstract class NPC extends Entity {
         super(x, y);
     }
 
-    public void doDamage(Projectile p) {
-        double dmg = (p.getDamage() - armor) * p.getDamageType().getDamageVersus(armorType);
+    public void doDamage(Projectile p, double amount) {
+        double dmg = (amount - armor) * p.getDamageType().getDamageVersus(armorType);
         if (dmg > 0) {
             currentHealth -= dmg;
             if(currentHealth <= 0){
