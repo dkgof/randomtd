@@ -24,9 +24,9 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
  */
 public abstract class NPC extends Entity {
     
-    private static final double HEALTH_BAR_OFFSET = 1;
+    private static final double HEALTH_BAR_OFFSET = 1.5;
     private static final double HEALTH_BAR_HEIGHT = 1;
-    private static final double HEALTH_BAR_MARGIN = 0.25;
+    private static final double MIN_HEALTH_BAR_WIDTH = 3;
 
     /**
      * Declare new armor types last.
@@ -94,9 +94,11 @@ public abstract class NPC extends Entity {
             }
         }
         draw.drawImage(x, y, width, height, img, getAngle());
-        draw.drawRectangle(x, y-HEALTH_BAR_OFFSET, width, HEALTH_BAR_HEIGHT, Color.black);
+        double healthBarWidth = Math.max(MIN_HEALTH_BAR_WIDTH, width);
         double healthFactor = currentHealth / maxHealth;
-        draw.fillRectangle(x + HEALTH_BAR_MARGIN, y-HEALTH_BAR_OFFSET + HEALTH_BAR_MARGIN, healthFactor*(width-2*HEALTH_BAR_MARGIN), HEALTH_BAR_HEIGHT - HEALTH_BAR_MARGIN, Color.green);
+        double adjustedWidth = healthFactor*healthBarWidth;
+        draw.fillRectangle(x-healthBarWidth/2 + adjustedWidth/2, y-HEALTH_BAR_OFFSET, adjustedWidth, HEALTH_BAR_HEIGHT, Color.green);
+        draw.drawRectangle(x, y-HEALTH_BAR_OFFSET, healthBarWidth, HEALTH_BAR_HEIGHT, Color.black);
     }
     
     @Override
