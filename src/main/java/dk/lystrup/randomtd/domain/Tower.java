@@ -9,6 +9,7 @@ import dk.lystrup.randomtd.engine.DrawHelper;
 import dk.lystrup.randomtd.towers.TeslaTower;
 import dk.lystrup.randomtd.ui.GamePanel;
 import dk.lystrup.randomtd.util.EntityUtil;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -21,6 +22,8 @@ import javax.imageio.ImageIO;
  */
 public abstract class Tower extends Entity {
 
+    private static final double LEVEL_TEXT_OFFSET = 0.5;
+    
     private double towerWidth, towerHeight;
     private double fireTimer;
     private String imagePath;
@@ -69,6 +72,7 @@ public abstract class Tower extends Entity {
             }
         }
         draw.drawImage(x, y, towerWidth, towerHeight, img, 0);
+        draw.drawString(x, y + towerHeight/2 + LEVEL_TEXT_OFFSET, "Level " + level, Color.black);
     }
 
     /**
