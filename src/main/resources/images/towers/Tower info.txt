@@ -27,3 +27,11 @@ Model:		'Tower_FirePlace'
 Shoots:		'Projectile_FireBall' at target
 Damage type:	Fire
 Specials:	'Effect_Fire' burn damage over time
+
+
+
+#####DIAMOND TOWER#####
+Model:		'Tower_Diamond'
+Shoots:		None
+Damage type:	None
+Specials:	"Sharpens" nearby towers, buffs damage. 'Effect_DiamondBuff' at target
