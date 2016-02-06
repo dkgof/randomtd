@@ -20,6 +20,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -142,6 +143,29 @@ public class GamePanel extends JPanel {
     }
 
     private ArrayList<Vector2D> findPath(Rectangle2D.Double start, Rectangle2D.Double end) {
+        int[][] pixels = new int[this.pathMask.getWidth()][this.pathMask.getHeight()];
+        
+        for(int i = 0; i<pixels.length; i++) {
+            Arrays.fill(pixels[i], Integer.MAX_VALUE);
+        }
+        
+        double pixelsPerMeter = this.getWidth() / Graphics2DDrawHelper.GAME_SIZE_IN_METERS;
+        
+        int currentLength = 0;
+
+        pixels[(int)(getStartX()*pixelsPerMeter)][(int)(getStartY()*pixelsPerMeter)] = currentLength;
+
+        boolean didSomething = true;
+        
+        while(didSomething) {
+            didSomething &= bangPixels(pixels, currentLength);
+            currentLength++;
+        }
+        
+        for(int i = 0; i<pixels.length; i++) {
+            //System.out.println(""+Arrays.toString(pixels[i]));
+        }
+        
         ArrayList<Vector2D> path = new ArrayList<>();
         
         path.add(new Vector2D(start.x + start.width / 2.0, start.y + start.height / 2.0));
@@ -198,5 +222,47 @@ public class GamePanel extends JPanel {
     
     public double getStartY() {
         return spawnRect.getY() + spawnRect.getHeight() / 2.0;
+    }
+    
+    private boolean bangPixels(int[][] pixels, int currentLength) {
+        boolean didSomething = false;
+        for(int x = 0; x<pixels.length; x++) {
+            for(int y = 0; y<pixels[x].length; y++) {
+                if(pixels[x][y] == currentLength) {
+                    System.out.println("Found length "+currentLength+" at "+x+", "+y);
+                    
+                    didSomething |= updatePixel(x-1, y-1, currentLength, pixels);
+                    didSomething |= updatePixel(x, y-1, currentLength, pixels);
+                    didSomething |= updatePixel(x+1, y-1, currentLength, pixels);
+
+                    didSomething |= updatePixel(x-1, y, currentLength, pixels);
+                    didSomething |= updatePixel(x+1, y, currentLength, pixels);
+
+                    didSomething |= updatePixel(x-1, y+1, currentLength, pixels);
+                    didSomething |= updatePixel(x, y+1, currentLength, pixels);
+                    didSomething |= updatePixel(x+1, y+1, currentLength, pixels);
+                }
+            }
+        }
+        
+        return didSomething;
+    }
+    
+    private boolean updatePixel(int x, int y, int currentLength, int[][] pixels) {
+        try {
+            int foundLength = pixels[x][y];
+            Color pathColor = new Color(this.pathMask.getRGB(x, y));
+            
+            System.out.println(""+pathColor);
+            
+            if(!pathColor.equals(Color.white) && currentLength + 1 < foundLength) {
+                pixels[x][y] = currentLength+1;
+                return true;
+            }
+        } catch(Exception e) {
+            
+        }
+        
+        return false;
     }
 }
