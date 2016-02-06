@@ -21,7 +21,7 @@ public class HolyGrenade extends Projectile {
     private final double explosionRadius;
     
     public HolyGrenade(double x, double y, NPC target, double speed, double damage, DamageType type, double explosionRadius) {
-        super(x, y, target, speed, damage, type, "images/projectiles/Projectile_Arrow.png", 1, 1);
+        super(x, y, target, speed, damage, type, "images/projectiles/Projectile_HolyGrenade.png", 2, 2);
         this.explosionRadius = explosionRadius;
     }
 

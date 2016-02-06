@@ -49,7 +49,7 @@ public class GraveTower extends Tower {
     }
     
     protected double getExplosionRadius(){
-        return 100;
+        return 10;
     }
 
 }
