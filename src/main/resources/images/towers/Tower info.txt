@@ -1,5 +1,6 @@
 #####BASIC ARROW TOWER#####
 Model:		'Tower_BasicArrow'
+Icon:		'Icon_BasicArrow'
 Shoots: 	'Projectile_Arrow' at target
 Damage type: 	Physical
 Specials: 	None
@@ -8,6 +9,7 @@ Specials: 	None
 
 #####TESLA TOWER#####
 Model:		'Tower_Tesla'
+Icon:		'Icon_Tesla'
 Shoots:		'Protectile_LightningBall' at target
 Damage type:	Electrical
 Specials:	Bouncing shots
@@ -16,6 +18,7 @@ Specials:	Bouncing shots
 
 #####GRAVE TOWER#####
 Model:		'Tower_Grave'
+Icon:		'Icon_Grave'
 Shoots:		'Projectile_HolyGrenade' at target
 Damage type:	Explosive
 Specials: 	'Effect_Explosion' splash damage at target
@@ -23,7 +26,26 @@ Specials: 	'Effect_Explosion' splash damage at target
 
 
 #####FIRE PLACE TOWER#####
-Model:		'Tower_FirePlace'
-Shoots:		'Projectile_FireBall' at target
+Model:		'Tower_Fireplace'
+Icon:		'Icon_Fireplace'
+Shoots:		'Projectile_Fireball' at target
 Damage type:	Fire
 Specials:	'Effect_Fire' burn damage over time
+
+
+
+#####DIAMOND TOWER#####
+Model:		'Tower_Diamond'
+Icon:		'Icon_Diamond'
+Shoots:		None
+Damage type:	None
+Specials:	'Effect_DiamondBuff' on nearby towers, buffs damage (sharpens)
+
+
+
+#####SNOWMAN TOWER#####
+Model:		'Tower_Snowman'
+Icon:		'Icon_Snowman'
+Shoots:		'Projectile_Snowball' at target
+Damage type:	Cold
+Specials:	'Effect_SnowSlow' at target, slows movement
