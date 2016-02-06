@@ -10,7 +10,7 @@ Specials: 	None
 Model:		'Tower_Tesla'
 Shoots:		'Protectile_LightningBall' at target
 Damage type:	Electrical
-Specials:	Bouncing shoots
+Specials:	Bouncing shots
 
 
 
