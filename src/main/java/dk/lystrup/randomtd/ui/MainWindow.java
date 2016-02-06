@@ -5,6 +5,7 @@
  */
 package dk.lystrup.randomtd.ui;
 
+import java.awt.FlowLayout;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
@@ -27,7 +28,8 @@ public class MainWindow extends javax.swing.JFrame {
         
         this.setTitle("Random TD");
         this.setSize(1024, 768);
-        this.setContentPane(game);
+        this.getContentPane().setLayout(new FlowLayout());
+        this.getContentPane().add(game);
         this.setVisible(true);
         
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {

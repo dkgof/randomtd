@@ -18,4 +18,6 @@ public interface DrawHelper {
     public void drawRectangle(double x, double y, double width, double height, Color color);
 
     public void fillRectangle(double x, double y, double width, double height, Color color);
+
+    public void drawBackground(Image background);
 }

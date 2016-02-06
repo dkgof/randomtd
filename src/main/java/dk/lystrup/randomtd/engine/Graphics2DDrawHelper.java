@@ -21,11 +21,13 @@ public class Graphics2DDrawHelper implements DrawHelper {
     private final Graphics2D g2;
     private final double pixelsPerMeterWidth;
     private final double pixelsPerMeterHeight;
+    private final double pixelAspect;
 
     public Graphics2DDrawHelper(Graphics2D g2, int width, int height) {
         this.g2 = g2;
         this.pixelsPerMeterWidth = width / GAME_SIZE_IN_METERS;
         this.pixelsPerMeterHeight = this.pixelsPerMeterWidth;
+        this.pixelAspect = pixelsPerMeterHeight / pixelsPerMeterWidth;
     }
     
     @Override
@@ -69,5 +71,12 @@ public class Graphics2DDrawHelper implements DrawHelper {
         } else {
             g2.drawRect((int) correctedX, (int) correctedY, (int) correctedWidth, (int) correctedHeight);
         }
+    }
+
+    @Override
+    public void drawBackground(Image background) {
+        double width = pixelsPerMeterWidth * GAME_SIZE_IN_METERS;
+        double height = width * pixelAspect;
+        g2.drawImage(background, 0, 0, (int) width, (int) height, null);
     }
 }
