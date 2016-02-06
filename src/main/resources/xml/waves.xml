@@ -10,7 +10,7 @@
         <armorType>LIGHT</armorType> 
         <movementSpeed>10</movementSpeed>
         <amount>15</amount>
-        <spawnInterval>0.2</spawnInterval>
+        <spawnInterval>0.5</spawnInterval>
     </wave>
     <wave id="wave2">
         <name>Giant Spider</name>
@@ -22,5 +22,16 @@
         <movementSpeed>8</movementSpeed>
         <amount>5</amount>
         <spawnInterval>1</spawnInterval>
+    </wave>
+    <wave id="wave3">
+        <name>Tiny Spider</name>
+        <model>NPC_Spider.png</model>
+        <size>0.5</size>
+        <health>10</health>
+        <armor>3</armor>
+        <armorType>HEAVY</armorType> 
+        <movementSpeed>15</movementSpeed>
+        <amount>25</amount>
+        <spawnInterval>0.2</spawnInterval>
     </wave>
 </waves>
