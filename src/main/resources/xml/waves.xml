@@ -2,14 +2,36 @@
 
 <waves>
     <wave id="wave1">
-        <name>Hest</name>
+        <name>Easy Spider</name>
         <model>NPC_Spider.png</model>
-        <size>2</size>
-        <health>50</health>
-        <armor>0</armor>
+        <size>1</size>
+        <health>10</health>
+        <armor>1</armor>
         <armorType>LIGHT</armorType> 
         <movementSpeed>10</movementSpeed>
-        <amount>5</amount>
+        <amount>15</amount>
         <spawnInterval>0.5</spawnInterval>
+    </wave>
+    <wave id="wave2">
+        <name>Giant Spider</name>
+        <model>NPC_Spider.png</model>
+        <size>4</size>
+        <health>50</health>
+        <armor>3</armor>
+        <armorType>HEAVY</armorType> 
+        <movementSpeed>8</movementSpeed>
+        <amount>5</amount>
+        <spawnInterval>1</spawnInterval>
+    </wave>
+    <wave id="wave3">
+        <name>Tiny Spider</name>
+        <model>NPC_Spider.png</model>
+        <size>0.5</size>
+        <health>10</health>
+        <armor>3</armor>
+        <armorType>NONE</armorType> 
+        <movementSpeed>15</movementSpeed>
+        <amount>25</amount>
+        <spawnInterval>0.2</spawnInterval>
     </wave>
 </waves>
