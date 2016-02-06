@@ -24,7 +24,7 @@ public class HolyGrenade extends Projectile {
 
     @Override
     protected void onDeath() {
-        Effect fx = new Effect(x, y, 0.1, splashRadius, 0.1, EXPLOSION_FX_PATH);
+        Effect fx = new Effect(x, y, 0.1, 2*splashRadius, 0.1, EXPLOSION_FX_PATH);
         GamePanel.instance().addEntity(fx);
     }
 }

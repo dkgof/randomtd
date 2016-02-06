@@ -25,8 +25,9 @@ public class Main {
         
         GamePanel.instance().setLevelImages("./images/maps/#1 Background.png", "./images/maps/#1 NpcPath.png", "./images/maps/#1 TowerMask.png");
         
-        Tower tower = new GraveTower(20, 20);
-        //GamePanel.instance().addEntity(tower);
+        Tower tower = new GraveTower(25, 40);
+        tower.setLevel(5);
+        GamePanel.instance().addEntity(tower);
 
         for(int i = 0; i<100; i++) {
             GamePanel.instance().addEntity(new SpiderNPC());

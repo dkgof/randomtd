@@ -48,7 +48,7 @@ public class GraveTower extends Tower {
     }
 
     protected double getSplashRadius() {
-        return 10 + 2 * level;
+        return 5 + 1 * level;
     }
 
     protected double getMinSplashFactor() {
