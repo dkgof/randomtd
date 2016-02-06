@@ -6,7 +6,7 @@
 package dk.lystrup.randomtd;
 
 import dk.lystrup.randomtd.domain.Tower;
-import dk.lystrup.randomtd.npcs.RandomWalkNPC;
+import dk.lystrup.randomtd.npcs.SpiderNPC;
 import dk.lystrup.randomtd.towers.ArrowTower;
 import dk.lystrup.randomtd.towers.TeslaTower;
 import dk.lystrup.randomtd.ui.GamePanel;
@@ -27,7 +27,7 @@ public class Main {
         GamePanel.instance().setLevelImages("./images/maps/#1 Background.png", "./images/maps/#1 NpcPath.png", "./images/maps/#1 TowerMask.png");
         
         for(int i = 0; i<50; i++) {
-            GamePanel.instance().addEntity(new RandomWalkNPC());
+            GamePanel.instance().addEntity(new SpiderNPC());
         }
     }
 }
