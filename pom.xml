@@ -20,5 +20,17 @@
             <artifactId>commons-math3</artifactId>
             <version>3.6</version>
         </dependency>
+        <dependency>
+            <groupId>dk.cavi</groupId>
+            <artifactId>XMLSaver</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
+    
+    <repositories>
+        <repository>
+            <id>Cavi Releases</id>
+            <url>https://projects.cavi.au.dk/code/nexus/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 </project>

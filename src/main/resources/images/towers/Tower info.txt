@@ -48,4 +48,4 @@ Model:		'Tower_Snowman'
 Icon:		'Icon_Snowman'
 Shoots:		'Projectile_Snowball' at target
 Damage type:	Cold
-Specials:	'Effect_SnowSlow' at target, slows movement
+Specials:	'Effect_SnowSlow' at target, slows movement. Splash 'Effect_SnowBoom' at level 5
