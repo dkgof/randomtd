@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 
-
-<wave>
-    <name></name>
-    <model></model>
-    <size></size>
-    <health></health>
-    <armor></armor>
-    <armorType></armorType> 
-    <movementSpeed></movementSpeed>
-</wave>
+<waves>
+    <wave id="wave1">
+        <name>Hest</name>
+        <model>NPC_Spider.png</model>
+        <size>2</size>
+        <health>50</health>
+        <armor>0</armor>
+        <armorType>LIGHT</armorType> 
+        <movementSpeed>10</movementSpeed>
+        <amount>5</amount>
+        <spawnInterval>0.5</spawnInterval>
+    </wave>
+</waves>

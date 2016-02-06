@@ -12,6 +12,7 @@ import dk.lystrup.randomtd.towers.GraveTower;
 import dk.lystrup.randomtd.towers.SnowmanTower;
 import dk.lystrup.randomtd.ui.GamePanel;
 import dk.lystrup.randomtd.ui.MainWindow;
+import dk.lystrup.randomtd.waves.WaveLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +25,8 @@ public class Main {
     public static void main(String[] args) {
         new MainWindow();
 
+        WaveLoader.parseWaves("./xml/waves.xml");
+        
         GamePanel.instance().setLevelImages("./images/maps/#1 Background.png", "./images/maps/#1 NpcPath.png", "./images/maps/#1 TowerMask.png");
 
         Tower tower = new GraveTower(25, 30);
