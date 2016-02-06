@@ -24,6 +24,8 @@ public class Main {
         GamePanel.instance().addEntity(tower);
         
         
+        GamePanel.instance().setLevelImages("./images/maps/#1 Background.png", "./images/maps/#1 NpcPath.png", "./images/maps/#1 TowerMask.png");
+        
         for(int i = 0; i<50; i++) {
             GamePanel.instance().addEntity(new RandomWalkNPC());
         }
