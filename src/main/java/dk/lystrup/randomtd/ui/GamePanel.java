@@ -100,6 +100,9 @@ public class GamePanel extends JPanel {
         entities.addAll(addEntities);
         addEntities.clear();
         
+        removeEntities.stream().forEach((entity) -> {
+            entity.destroyBuffs();
+        });
         entities.removeAll(removeEntities);
         removeEntities.clear();
         

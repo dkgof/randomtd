@@ -8,51 +8,51 @@ package dk.lystrup.randomtd.towers;
 import dk.lystrup.randomtd.domain.NPC;
 import dk.lystrup.randomtd.domain.Projectile;
 import dk.lystrup.randomtd.domain.Tower;
-import dk.lystrup.randomtd.projectiles.HolyGrenade;
+import dk.lystrup.randomtd.projectiles.Snowball;
 
 /**
  *
  * @author Thor
  */
-public class GraveTower extends Tower {
+public class SnowmanTower extends Tower {
 
-    private static final String IMAGE_PATH = "images/towers/Tower_Grave.png";
+    private static final String IMAGE_PATH = "images/towers/Tower_Snowman.png";
 
-    public GraveTower(double x, double y) {
+    public SnowmanTower(double x, double y) {
         super(x, y, 5, 5, IMAGE_PATH);
     }
 
     @Override
     protected Projectile generateProjectile(NPC target) {
-        return new HolyGrenade(x, y, target, this, getProjectileSpeed(), getDamage(), getSplashRadius(), getMinSplashFactor(), Projectile.DamageType.EXPLOSIVE);
+        return new Snowball(x, y, target, this, getProjectileSpeed(), getDamage(), Projectile.DamageType.COLD, getSlowDuration(), getSlowFactor());
     }
 
     @Override
     protected double getDamage() {
-        return 10 + 3 * level;
+        return 5 + level;
     }
 
     @Override
     protected double getRange() {
-        return 25 + 5 * level;
+        return 25 + 2 * level;
     }
 
     @Override
     protected double getProjectileSpeed() {
-        return 20;
+        return 25;
     }
 
     @Override
     protected double getFireRate() {
-        return Math.max(0.1, 1 - 0.03 * level);
+        return Math.max(0.1, 1 - 0.06 * level);
     }
-
-    protected double getSplashRadius() {
-        return 5 + 1 * level;
+    
+    protected double getSlowDuration(){
+        return 2;
     }
-
-    protected double getMinSplashFactor() {
-        return Math.max(0.8, 0.3 + 0.05 * level);
+    
+    protected double getSlowFactor(){
+        return 0.5;
     }
 
 }

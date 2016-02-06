@@ -5,17 +5,13 @@
  */
 package dk.lystrup.randomtd.domain;
 
+import dk.lystrup.randomtd.domain.Projectile.DamageType;
 import dk.lystrup.randomtd.engine.DrawHelper;
 import dk.lystrup.randomtd.towers.TeslaTower;
 import dk.lystrup.randomtd.ui.GamePanel;
-import java.awt.Color;
-import java.awt.geom.Path2D;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -58,7 +54,7 @@ public abstract class NPC extends Entity {
     private int pathIndex;
     
     private Vector2D direction;
-    private double speed;
+    private final double speed;
     
     public NPC(double x, double y, double width, double height, String imagePath, double speed) {
         super(x, y);
@@ -70,8 +66,11 @@ public abstract class NPC extends Entity {
         pathIndex = 0;
     }
 
-    public void doDamage(Projectile p, double amount) {
-        double dmg = (amount - armor) * p.getDamageType().getDamageVersus(armorType);
+    public void doDamage(Entity damageDealer, DamageType type, double amount) {
+        double dmg = (amount - armor) * type.getDamageVersus(armorType);
+        //buffs changing damage done and taken are applied after reductions
+        dmg = damageDealer.onDamageDone(dmg);
+        dmg = onDamageTaken(dmg);
         if (dmg > 0) {
             currentHealth -= dmg;
             if(currentHealth <= 0){
@@ -94,6 +93,7 @@ public abstract class NPC extends Entity {
     
     @Override
     public void tick(double deltaTime) {
+        super.tick(deltaTime);
         if(path == null) {
             path = GamePanel.instance().getNpcPath();
         }
@@ -115,7 +115,10 @@ public abstract class NPC extends Entity {
             
             direction = currentTarget.subtract(currentPos);
             
-            currentPos = currentPos.add(speed*deltaTime, direction.normalize());
+            double movement = speed*deltaTime;
+            movement = onMovement(movement);
+            
+            currentPos = currentPos.add(movement, direction.normalize());
             
             x = currentPos.getX();
             y = currentPos.getY();

@@ -5,6 +5,7 @@
  */
 package dk.lystrup.randomtd.projectiles;
 
+import dk.lystrup.randomtd.domain.Entity;
 import dk.lystrup.randomtd.domain.NPC;
 import dk.lystrup.randomtd.domain.Projectile;
 
@@ -14,12 +15,12 @@ import dk.lystrup.randomtd.domain.Projectile;
  */
 public class Arrow extends Projectile {
 
-    public Arrow(double x, double y, NPC target, double speed, double damage, DamageType type) {
-        super(x, y, target, speed, damage, type, "images/projectiles/Projectile_Arrow.png", 2, 0.5);
+    public Arrow(double x, double y, NPC target, Entity owner, double speed, double damage, DamageType type) {
+        super(x, y, target, owner, speed, damage, type, "images/projectiles/Projectile_Arrow.png", 2, 0.5);
     }
 
     @Override
-    protected void onDeath() {
+    protected void onCollision() {
 
     }
 }

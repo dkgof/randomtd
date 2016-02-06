@@ -24,7 +24,7 @@ public class ArrowTower extends Tower {
 
     @Override
     protected Projectile generateProjectile(NPC target) {
-        return new Arrow(x, y, target, getProjectileSpeed(), getDamage(), Projectile.DamageType.PHYSICAL);
+        return new Arrow(x, y, target, this, getProjectileSpeed(), getDamage(), Projectile.DamageType.PHYSICAL);
     }
 
     @Override

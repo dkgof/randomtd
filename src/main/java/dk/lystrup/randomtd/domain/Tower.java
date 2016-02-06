@@ -11,11 +11,9 @@ import dk.lystrup.randomtd.ui.GamePanel;
 import dk.lystrup.randomtd.util.EntityUtil;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 /**
  *
@@ -47,6 +45,10 @@ public abstract class Tower extends Entity {
 
     @Override
     public void tick(double deltaTime) {
+        super.tick(deltaTime);
+        if(getFireRate() == 0){
+            return;
+        }
         fireTimer += deltaTime;
         if (fireTimer >= getFireRate()) {
             if (shootProjectile()) {

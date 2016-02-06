@@ -26,6 +26,7 @@ public class Effect extends Entity{
     private double width, height;
     private double lifetime;
     private final double initLifetime;
+    private boolean indefiniteLifetime;
     private Entity target;
     private final boolean grow;
     
@@ -36,7 +37,7 @@ public class Effect extends Entity{
         this.width = initWidth;
         this.height = initHeight;
         this.lifetime = lifetime;
-        initLifetime = lifetime;
+        this.initLifetime = lifetime;
         this.imagePath = imagePath;
         this.offsetX = 0;
         this.offsetY = 0;
@@ -45,12 +46,23 @@ public class Effect extends Entity{
         }else{
             grow = true;
         }
+        indefiniteLifetime = false;
     }
+    
     public Effect(double x, double y, double initSize, double finalSize, double lifetime, String imagePath) {
         this(x, y, initSize, initSize, finalSize, finalSize, lifetime, imagePath);
     }
     
-    public Effect(double x, double y, double initWidth, double initHeight, double finalWidth, double finalHeight, double lifetime, String imagePath, Entity target, double offsetX, double offsetY) {
+    public Effect(double x, double y, double size, double lifetime, String imagePath) {
+        this(x, y, size, size, size, size, lifetime, imagePath);
+    }
+    
+    public Effect(double x, double y, double size, String imagePath) {
+        this(x, y, size, size, size, size, -1, imagePath);
+        indefiniteLifetime = true;
+    }
+    
+    public Effect(Entity target, double initWidth, double initHeight, double finalWidth, double finalHeight, double lifetime, String imagePath, double offsetX, double offsetY) {
         super(target.x+offsetX, target.y+offsetY);
         this.imagePath = imagePath;
         this.target = target;
@@ -61,15 +73,26 @@ public class Effect extends Entity{
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.initLifetime = lifetime;
+        this.lifetime = lifetime;
         if(initWidth == finalWidth && initHeight == finalHeight){
             grow = false;
         }else{
             grow = true;
         }
+        indefiniteLifetime = false;
     }
     
-    public Effect(double x, double y, double initSize, double finalSize, double lifetime, String imagePath, Entity target, double offsetX, double offsetY) {
-        this(x, y, initSize, initSize, finalSize, finalSize, lifetime, imagePath, target, offsetX, offsetY);
+    public Effect(Entity target, double initSize, double finalSize, double lifetime, String imagePath, double offsetX, double offsetY) {
+        this(target, initSize, initSize, finalSize, finalSize, lifetime, imagePath, offsetX, offsetY);
+    }
+    
+    public Effect(Entity target, double size, double lifetime, String imagePath, double offsetX, double offsetY) {
+        this(target, size, size, size, size, lifetime, imagePath, offsetX, offsetY);
+    }
+    
+    public Effect(Entity target, double size, String imagePath, double offsetX, double offsetY) {
+        this(target, size, size, size, size, -1, imagePath, offsetX, offsetY);
+        indefiniteLifetime = true;
     }
 
     @Override
@@ -86,6 +109,14 @@ public class Effect extends Entity{
 
     @Override
     public void tick(double deltaTime) {
+        super.tick(deltaTime);
+        if(target != null){
+            x = target.x + offsetX;
+            y = target.y + offsetY;
+        }
+        if(indefiniteLifetime){
+            return;
+        }
         lifetime -= deltaTime;
         if(lifetime <= 0){
             GamePanel.instance().removeEntity(this);
@@ -96,10 +127,12 @@ public class Effect extends Entity{
             width += timeFactor * widthDiff;
             height += timeFactor * heightDiff;
         }
-        if(target != null){
-            x = target.x + offsetX;
-            y = target.y + offsetY;
-        }
+        
+    }
+    
+    public void destroy(){
+        lifetime = 0;
+        indefiniteLifetime = false;
     }
     
 }
