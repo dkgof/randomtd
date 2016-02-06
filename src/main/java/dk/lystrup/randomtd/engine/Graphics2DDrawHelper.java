@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.awt.geom.AffineTransform;
  */
 public class Graphics2DDrawHelper implements DrawHelper {
 
-    private static final double GAME_SIZE_IN_METERS = 100;
+    public static final double GAME_SIZE_IN_METERS = 100;
     
     private final Graphics2D g2;
     private final double pixelsPerMeterWidth;
@@ -40,7 +41,7 @@ public class Graphics2DDrawHelper implements DrawHelper {
         
         AffineTransform transform = new AffineTransform();
         transform.translate(correctedX, correctedY);
-        transform.rotate(angle);
+        transform.rotate(angle, correctedWidth / 2.0, correctedHeight / 2.0);
         transform.scale(correctedWidth / img.getWidth(null), correctedHeight / img.getHeight(null));
         
         g2.drawImage(img, transform, null);
@@ -78,5 +79,20 @@ public class Graphics2DDrawHelper implements DrawHelper {
         double width = pixelsPerMeterWidth * GAME_SIZE_IN_METERS;
         double height = width * pixelAspect;
         g2.drawImage(background, 0, 0, (int) width, (int) height, null);
+    }
+    
+    @Override
+    public void drawDebug(Rectangle2D.Double rect, Color color) {
+        if(rect == null) {
+            return;
+        }
+        
+        double correctedX = (rect.x * pixelsPerMeterWidth);
+        double correctedY = (rect.y * pixelsPerMeterHeight);
+        double correctedWidth = (rect.width * pixelsPerMeterWidth);
+        double correctedHeight = (rect.height * pixelsPerMeterHeight);
+        
+        g2.setColor(color);
+        g2.drawRect((int) correctedX, (int) correctedY, (int) correctedWidth, (int) correctedHeight);
     }
 }

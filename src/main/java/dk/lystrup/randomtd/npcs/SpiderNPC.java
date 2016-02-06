@@ -6,8 +6,7 @@
 package dk.lystrup.randomtd.npcs;
 
 import dk.lystrup.randomtd.domain.NPC;
-import dk.lystrup.randomtd.engine.DrawHelper;
-import java.awt.Color;
+import dk.lystrup.randomtd.ui.GamePanel;
 import java.util.Random;
 
 /**
@@ -16,10 +15,8 @@ import java.util.Random;
  */
 public class SpiderNPC extends NPC {
 
-    private static final Random rand = new Random();
-    
     public SpiderNPC() {
-        super(rand.nextInt(100), rand.nextInt(100), 2, 2, "./images/npcs/NPC_Spider.png");
+        super(GamePanel.instance().getStartX(), GamePanel.instance().getStartY(), 2, 2, "./images/npcs/NPC_Spider.png", 10.0);
         
         this.maxHealth = 100;
         this.currentHealth = 100;
