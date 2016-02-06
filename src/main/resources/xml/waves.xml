@@ -29,7 +29,7 @@
         <size>0.5</size>
         <health>10</health>
         <armor>3</armor>
-        <armorType>HEAVY</armorType> 
+        <armorType>NONE</armorType> 
         <movementSpeed>15</movementSpeed>
         <amount>25</amount>
         <spawnInterval>0.2</spawnInterval>
