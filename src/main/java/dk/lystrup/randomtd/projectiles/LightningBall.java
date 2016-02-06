@@ -31,6 +31,7 @@ public class LightningBall extends Projectile{
     public LightningBall(double x, double y, NPC target, double speed, double damage, DamageType type, double bounceRange, int bouncesLeft, List<Entity> hits) {
         super(x,y, target, speed, damage, type, "images/projectiles/Projectile_LightningBall.png", 1, 1);
         this.bouncesLeft = bouncesLeft;
+        this.bounceRange = bounceRange;
         targetsHit = hits;
         targetsHit.add(target);
     }
